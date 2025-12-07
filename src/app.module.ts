@@ -5,6 +5,8 @@ import { AiModule } from './ai/ai.module';
 import { AuthModule } from './auth/auth.module';
 import { CommentsModule } from './comments/comments.module';
 import { PrismaModule } from './database/prisma.module';
+import { FriendsModule } from './friends/friends.module';
+import { LocationModule } from './location/location.module';
 import { PostsModule } from './posts/posts.module';
 import { ReactionsModule } from './reactions/reactions.module';
 import { UploadsModule } from './uploads/uploads.module';
@@ -21,6 +23,8 @@ import { UsersModule } from './users/users.module';
     ReactionsModule,
     UploadsModule,
     AiModule,
+    LocationModule,
+    FriendsModule,
   ],
 })
 export class AppModule {}

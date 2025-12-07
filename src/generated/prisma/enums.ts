@@ -61,3 +61,13 @@ export const ReactionType = {
 } as const
 
 export type ReactionType = (typeof ReactionType)[keyof typeof ReactionType]
+
+
+export const FriendRequestStatus = {
+  PENDING: 'PENDING',
+  ACCEPTED: 'ACCEPTED',
+  REJECTED: 'REJECTED',
+  CANCELED: 'CANCELED'
+} as const
+
+export type FriendRequestStatus = (typeof FriendRequestStatus)[keyof typeof FriendRequestStatus]

@@ -58,7 +58,12 @@ export const ModelName = {
   Post: 'Post',
   PostMedia: 'PostMedia',
   Comment: 'Comment',
-  Reaction: 'Reaction'
+  Reaction: 'Reaction',
+  FriendRequest: 'FriendRequest',
+  Friend: 'Friend',
+  Block: 'Block',
+  FriendInviteCode: 'FriendInviteCode',
+  UserLocation: 'UserLocation'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -187,6 +192,62 @@ export const ReactionScalarFieldEnum = {
 } as const
 
 export type ReactionScalarFieldEnum = (typeof ReactionScalarFieldEnum)[keyof typeof ReactionScalarFieldEnum]
+
+
+export const FriendRequestScalarFieldEnum = {
+  id: 'id',
+  fromUserId: 'fromUserId',
+  toUserId: 'toUserId',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FriendRequestScalarFieldEnum = (typeof FriendRequestScalarFieldEnum)[keyof typeof FriendRequestScalarFieldEnum]
+
+
+export const FriendScalarFieldEnum = {
+  id: 'id',
+  userId1: 'userId1',
+  userId2: 'userId2',
+  createdAt: 'createdAt'
+} as const
+
+export type FriendScalarFieldEnum = (typeof FriendScalarFieldEnum)[keyof typeof FriendScalarFieldEnum]
+
+
+export const BlockScalarFieldEnum = {
+  id: 'id',
+  blockerId: 'blockerId',
+  blockedId: 'blockedId',
+  createdAt: 'createdAt'
+} as const
+
+export type BlockScalarFieldEnum = (typeof BlockScalarFieldEnum)[keyof typeof BlockScalarFieldEnum]
+
+
+export const FriendInviteCodeScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  ownerId: 'ownerId',
+  usedByUserId: 'usedByUserId',
+  createdAt: 'createdAt',
+  usedAt: 'usedAt',
+  expiresAt: 'expiresAt'
+} as const
+
+export type FriendInviteCodeScalarFieldEnum = (typeof FriendInviteCodeScalarFieldEnum)[keyof typeof FriendInviteCodeScalarFieldEnum]
+
+
+export const UserLocationScalarFieldEnum = {
+  userId: 'userId',
+  lat: 'lat',
+  lng: 'lng',
+  sharingEnabled: 'sharingEnabled',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserLocationScalarFieldEnum = (typeof UserLocationScalarFieldEnum)[keyof typeof UserLocationScalarFieldEnum]
 
 
 export const SortOrder = {

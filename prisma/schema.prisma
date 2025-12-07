@@ -44,6 +44,13 @@ enum ReactionType {
   ANGRY
 }
 
+enum FriendRequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  CANCELED
+}
+
 model User {
   id           String  @id @default(uuid())
   email        String  @unique
@@ -68,6 +75,20 @@ model User {
   posts     Post[]
   comments  Comment[]
   reactions Reaction[]
+
+  friendRequestsSent     FriendRequest[] @relation("FriendRequestFrom")
+  friendRequestsReceived FriendRequest[] @relation("FriendRequestTo")
+
+  friendsAsUser1 Friend[] @relation("FriendUser1")
+  friendsAsUser2 Friend[] @relation("FriendUser2")
+
+  blocksInitiated Block[] @relation("Blocker")
+  blocksReceived  Block[] @relation("Blocked")
+
+  inviteCodesOwned FriendInviteCode[] @relation("InviteOwner")
+  inviteCodesUsed  FriendInviteCode[] @relation("InviteUsedBy")
+
+  location UserLocation?
 }
 
 model RefreshToken {
@@ -199,4 +220,80 @@ model Reaction {
 
   @@unique([userId, targetType, targetId])
   @@index([targetId])
+}
+
+model FriendRequest {
+  id         String @id @default(uuid())
+  fromUser   User   @relation("FriendRequestFrom", fields: [fromUserId], references: [id], onDelete: Cascade)
+  fromUserId String
+  toUser     User   @relation("FriendRequestTo", fields: [toUserId], references: [id], onDelete: Cascade)
+  toUserId   String
+
+  status FriendRequestStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([fromUserId, toUserId, status])
+  @@index([fromUserId])
+  @@index([toUserId])
+  @@index([status])
+}
+
+model Friend {
+  id      String @id @default(uuid())
+  user1   User   @relation("FriendUser1", fields: [userId1], references: [id], onDelete: Cascade)
+  userId1 String
+  user2   User   @relation("FriendUser2", fields: [userId2], references: [id], onDelete: Cascade)
+  userId2 String
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId1, userId2])
+  @@index([userId1])
+  @@index([userId2])
+}
+
+model Block {
+  id        String @id @default(uuid())
+  blocker   User   @relation("Blocker", fields: [blockerId], references: [id], onDelete: Cascade)
+  blockerId String
+  blocked   User   @relation("Blocked", fields: [blockedId], references: [id], onDelete: Cascade)
+  blockedId String
+
+  createdAt DateTime @default(now())
+
+  @@unique([blockerId, blockedId])
+  @@index([blockerId])
+  @@index([blockedId])
+}
+
+model FriendInviteCode {
+  id   String @id @default(uuid())
+  code String @unique
+
+  owner   User   @relation("InviteOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId String
+
+  usedByUser   User?   @relation("InviteUsedBy", fields: [usedByUserId], references: [id])
+  usedByUserId String?
+
+  createdAt DateTime  @default(now())
+  usedAt    DateTime?
+  expiresAt DateTime?
+
+  @@index([code])
+  @@index([ownerId])
+  @@index([usedByUserId])
+}
+
+model UserLocation {
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @id
+
+  lat            Float
+  lng            Float
+  sharingEnabled Boolean @default(false)
+
+  updatedAt DateTime @updatedAt
 }

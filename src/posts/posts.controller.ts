@@ -29,8 +29,8 @@ export class PostsController {
   }
 
   @Get('feed')
-  feed(@Query() query: FeedQueryDto) {
-    return this.postsService.getFeed(query.page, query.limit);
+  feed(@CurrentUser() user: any, @Query() query: FeedQueryDto) {
+    return this.postsService.getFeed(user.sub, query.page, query.limit);
   }
 
   @Get(':id')

@@ -57,3 +57,28 @@ export type Comment = Prisma.CommentModel
  * 
  */
 export type Reaction = Prisma.ReactionModel
+/**
+ * Model FriendRequest
+ * 
+ */
+export type FriendRequest = Prisma.FriendRequestModel
+/**
+ * Model Friend
+ * 
+ */
+export type Friend = Prisma.FriendModel
+/**
+ * Model Block
+ * 
+ */
+export type Block = Prisma.BlockModel
+/**
+ * Model FriendInviteCode
+ * 
+ */
+export type FriendInviteCode = Prisma.FriendInviteCodeModel
+/**
+ * Model UserLocation
+ * 
+ */
+export type UserLocation = Prisma.UserLocationModel

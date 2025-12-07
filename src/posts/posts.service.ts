@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { AiService } from '../ai/ai.service';
 import { PrismaService } from '../database/prisma.service';
-import { AiStatus, MediaType } from '../generated/prisma/enums';
+import { AiStatus, MediaType, Privacy } from '../generated/prisma/enums';
 import { CreatePostDto } from './dtos/create-post.dto';
 import { UpdatePostDto } from './dtos/update-post.dto';
 
@@ -78,13 +78,31 @@ export class PostsService {
     return post;
   }
 
-  async getFeed(page: number, limit: number) {
+  async getFeed(userId: string, page: number, limit: number) {
     const skip = (page - 1) * limit;
+
+    const friends = await this.prisma.friend.findMany({
+      where: {
+        OR: [{ userId1: userId }, { userId2: userId }],
+      },
+    });
+
+    const friendIds = friends.map((f) =>
+      f.userId1 === userId ? f.userId2 : f.userId1,
+    );
 
     const posts = await this.prisma.post.findMany({
       where: {
         deletedAt: null,
-        // TODO: filter with friend
+        OR: [
+          {
+            authorId: userId,
+          },
+          {
+            authorId: { in: friendIds },
+            privacy: { in: [Privacy.PUBLIC, Privacy.FRIENDS] },
+          },
+        ],
       },
       include: {
         media: true,

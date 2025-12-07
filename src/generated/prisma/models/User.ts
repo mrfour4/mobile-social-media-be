@@ -244,6 +244,15 @@ export type UserWhereInput = {
   posts?: Prisma.PostListRelationFilter
   comments?: Prisma.CommentListRelationFilter
   reactions?: Prisma.ReactionListRelationFilter
+  friendRequestsSent?: Prisma.FriendRequestListRelationFilter
+  friendRequestsReceived?: Prisma.FriendRequestListRelationFilter
+  friendsAsUser1?: Prisma.FriendListRelationFilter
+  friendsAsUser2?: Prisma.FriendListRelationFilter
+  blocksInitiated?: Prisma.BlockListRelationFilter
+  blocksReceived?: Prisma.BlockListRelationFilter
+  inviteCodesOwned?: Prisma.FriendInviteCodeListRelationFilter
+  inviteCodesUsed?: Prisma.FriendInviteCodeListRelationFilter
+  location?: Prisma.XOR<Prisma.UserLocationNullableScalarRelationFilter, Prisma.UserLocationWhereInput> | null
 }
 
 export type UserOrderByWithRelationInput = {
@@ -265,6 +274,15 @@ export type UserOrderByWithRelationInput = {
   posts?: Prisma.PostOrderByRelationAggregateInput
   comments?: Prisma.CommentOrderByRelationAggregateInput
   reactions?: Prisma.ReactionOrderByRelationAggregateInput
+  friendRequestsSent?: Prisma.FriendRequestOrderByRelationAggregateInput
+  friendRequestsReceived?: Prisma.FriendRequestOrderByRelationAggregateInput
+  friendsAsUser1?: Prisma.FriendOrderByRelationAggregateInput
+  friendsAsUser2?: Prisma.FriendOrderByRelationAggregateInput
+  blocksInitiated?: Prisma.BlockOrderByRelationAggregateInput
+  blocksReceived?: Prisma.BlockOrderByRelationAggregateInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeOrderByRelationAggregateInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeOrderByRelationAggregateInput
+  location?: Prisma.UserLocationOrderByWithRelationInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -289,6 +307,15 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   posts?: Prisma.PostListRelationFilter
   comments?: Prisma.CommentListRelationFilter
   reactions?: Prisma.ReactionListRelationFilter
+  friendRequestsSent?: Prisma.FriendRequestListRelationFilter
+  friendRequestsReceived?: Prisma.FriendRequestListRelationFilter
+  friendsAsUser1?: Prisma.FriendListRelationFilter
+  friendsAsUser2?: Prisma.FriendListRelationFilter
+  blocksInitiated?: Prisma.BlockListRelationFilter
+  blocksReceived?: Prisma.BlockListRelationFilter
+  inviteCodesOwned?: Prisma.FriendInviteCodeListRelationFilter
+  inviteCodesUsed?: Prisma.FriendInviteCodeListRelationFilter
+  location?: Prisma.XOR<Prisma.UserLocationNullableScalarRelationFilter, Prisma.UserLocationWhereInput> | null
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -346,6 +373,15 @@ export type UserCreateInput = {
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
   reactions?: Prisma.ReactionCreateNestedManyWithoutUserInput
+  friendRequestsSent?: Prisma.FriendRequestCreateNestedManyWithoutFromUserInput
+  friendRequestsReceived?: Prisma.FriendRequestCreateNestedManyWithoutToUserInput
+  friendsAsUser1?: Prisma.FriendCreateNestedManyWithoutUser1Input
+  friendsAsUser2?: Prisma.FriendCreateNestedManyWithoutUser2Input
+  blocksInitiated?: Prisma.BlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.BlockCreateNestedManyWithoutBlockedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeCreateNestedManyWithoutOwnerInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeCreateNestedManyWithoutUsedByUserInput
+  location?: Prisma.UserLocationCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -367,6 +403,15 @@ export type UserUncheckedCreateInput = {
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
   reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutUserInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutFromUserInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutToUserInput
+  friendsAsUser1?: Prisma.FriendUncheckedCreateNestedManyWithoutUser1Input
+  friendsAsUser2?: Prisma.FriendUncheckedCreateNestedManyWithoutUser2Input
+  blocksInitiated?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutOwnerInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutUsedByUserInput
+  location?: Prisma.UserLocationUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -388,6 +433,15 @@ export type UserUpdateInput = {
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
   reactions?: Prisma.ReactionUpdateManyWithoutUserNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUpdateManyWithoutFromUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUpdateManyWithoutToUserNestedInput
+  friendsAsUser1?: Prisma.FriendUpdateManyWithoutUser1NestedInput
+  friendsAsUser2?: Prisma.FriendUpdateManyWithoutUser2NestedInput
+  blocksInitiated?: Prisma.BlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.BlockUpdateManyWithoutBlockedNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUpdateManyWithoutOwnerNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUpdateManyWithoutUsedByUserNestedInput
+  location?: Prisma.UserLocationUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -409,6 +463,15 @@ export type UserUncheckedUpdateInput = {
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
   reactions?: Prisma.ReactionUncheckedUpdateManyWithoutUserNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedUpdateManyWithoutFromUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedUpdateManyWithoutToUserNestedInput
+  friendsAsUser1?: Prisma.FriendUncheckedUpdateManyWithoutUser1NestedInput
+  friendsAsUser2?: Prisma.FriendUncheckedUpdateManyWithoutUser2NestedInput
+  blocksInitiated?: Prisma.BlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.BlockUncheckedUpdateManyWithoutBlockedNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutOwnerNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutUsedByUserNestedInput
+  location?: Prisma.UserLocationUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -504,6 +567,11 @@ export type UserMinOrderByAggregateInput = {
 export type UserScalarRelationFilter = {
   is?: Prisma.UserWhereInput
   isNot?: Prisma.UserWhereInput
+}
+
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -614,6 +682,134 @@ export type UserUpdateOneRequiredWithoutReactionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReactionsInput, Prisma.UserUpdateWithoutReactionsInput>, Prisma.UserUncheckedUpdateWithoutReactionsInput>
 }
 
+export type UserCreateNestedOneWithoutFriendRequestsSentInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFriendRequestsSentInput, Prisma.UserUncheckedCreateWithoutFriendRequestsSentInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFriendRequestsSentInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutFriendRequestsReceivedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFriendRequestsReceivedInput, Prisma.UserUncheckedCreateWithoutFriendRequestsReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFriendRequestsReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutFriendRequestsSentNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFriendRequestsSentInput, Prisma.UserUncheckedCreateWithoutFriendRequestsSentInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFriendRequestsSentInput
+  upsert?: Prisma.UserUpsertWithoutFriendRequestsSentInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFriendRequestsSentInput, Prisma.UserUpdateWithoutFriendRequestsSentInput>, Prisma.UserUncheckedUpdateWithoutFriendRequestsSentInput>
+}
+
+export type UserUpdateOneRequiredWithoutFriendRequestsReceivedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFriendRequestsReceivedInput, Prisma.UserUncheckedCreateWithoutFriendRequestsReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFriendRequestsReceivedInput
+  upsert?: Prisma.UserUpsertWithoutFriendRequestsReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFriendRequestsReceivedInput, Prisma.UserUpdateWithoutFriendRequestsReceivedInput>, Prisma.UserUncheckedUpdateWithoutFriendRequestsReceivedInput>
+}
+
+export type UserCreateNestedOneWithoutFriendsAsUser1Input = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFriendsAsUser1Input, Prisma.UserUncheckedCreateWithoutFriendsAsUser1Input>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFriendsAsUser1Input
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutFriendsAsUser2Input = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFriendsAsUser2Input, Prisma.UserUncheckedCreateWithoutFriendsAsUser2Input>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFriendsAsUser2Input
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutFriendsAsUser1NestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFriendsAsUser1Input, Prisma.UserUncheckedCreateWithoutFriendsAsUser1Input>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFriendsAsUser1Input
+  upsert?: Prisma.UserUpsertWithoutFriendsAsUser1Input
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFriendsAsUser1Input, Prisma.UserUpdateWithoutFriendsAsUser1Input>, Prisma.UserUncheckedUpdateWithoutFriendsAsUser1Input>
+}
+
+export type UserUpdateOneRequiredWithoutFriendsAsUser2NestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFriendsAsUser2Input, Prisma.UserUncheckedCreateWithoutFriendsAsUser2Input>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFriendsAsUser2Input
+  upsert?: Prisma.UserUpsertWithoutFriendsAsUser2Input
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFriendsAsUser2Input, Prisma.UserUpdateWithoutFriendsAsUser2Input>, Prisma.UserUncheckedUpdateWithoutFriendsAsUser2Input>
+}
+
+export type UserCreateNestedOneWithoutBlocksInitiatedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBlocksInitiatedInput, Prisma.UserUncheckedCreateWithoutBlocksInitiatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBlocksInitiatedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutBlocksReceivedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBlocksReceivedInput, Prisma.UserUncheckedCreateWithoutBlocksReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBlocksReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutBlocksInitiatedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBlocksInitiatedInput, Prisma.UserUncheckedCreateWithoutBlocksInitiatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBlocksInitiatedInput
+  upsert?: Prisma.UserUpsertWithoutBlocksInitiatedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBlocksInitiatedInput, Prisma.UserUpdateWithoutBlocksInitiatedInput>, Prisma.UserUncheckedUpdateWithoutBlocksInitiatedInput>
+}
+
+export type UserUpdateOneRequiredWithoutBlocksReceivedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBlocksReceivedInput, Prisma.UserUncheckedCreateWithoutBlocksReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBlocksReceivedInput
+  upsert?: Prisma.UserUpsertWithoutBlocksReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBlocksReceivedInput, Prisma.UserUpdateWithoutBlocksReceivedInput>, Prisma.UserUncheckedUpdateWithoutBlocksReceivedInput>
+}
+
+export type UserCreateNestedOneWithoutInviteCodesOwnedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutInviteCodesOwnedInput, Prisma.UserUncheckedCreateWithoutInviteCodesOwnedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutInviteCodesOwnedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutInviteCodesUsedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutInviteCodesUsedInput, Prisma.UserUncheckedCreateWithoutInviteCodesUsedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutInviteCodesUsedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutInviteCodesOwnedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutInviteCodesOwnedInput, Prisma.UserUncheckedCreateWithoutInviteCodesOwnedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutInviteCodesOwnedInput
+  upsert?: Prisma.UserUpsertWithoutInviteCodesOwnedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutInviteCodesOwnedInput, Prisma.UserUpdateWithoutInviteCodesOwnedInput>, Prisma.UserUncheckedUpdateWithoutInviteCodesOwnedInput>
+}
+
+export type UserUpdateOneWithoutInviteCodesUsedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutInviteCodesUsedInput, Prisma.UserUncheckedCreateWithoutInviteCodesUsedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutInviteCodesUsedInput
+  upsert?: Prisma.UserUpsertWithoutInviteCodesUsedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutInviteCodesUsedInput, Prisma.UserUpdateWithoutInviteCodesUsedInput>, Prisma.UserUncheckedUpdateWithoutInviteCodesUsedInput>
+}
+
+export type UserCreateNestedOneWithoutLocationInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLocationInput, Prisma.UserUncheckedCreateWithoutLocationInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLocationInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutLocationNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLocationInput, Prisma.UserUncheckedCreateWithoutLocationInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLocationInput
+  upsert?: Prisma.UserUpsertWithoutLocationInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLocationInput, Prisma.UserUpdateWithoutLocationInput>, Prisma.UserUncheckedUpdateWithoutLocationInput>
+}
+
 export type UserCreateWithoutRefreshTokensInput = {
   id?: string
   email: string
@@ -632,6 +828,15 @@ export type UserCreateWithoutRefreshTokensInput = {
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
   reactions?: Prisma.ReactionCreateNestedManyWithoutUserInput
+  friendRequestsSent?: Prisma.FriendRequestCreateNestedManyWithoutFromUserInput
+  friendRequestsReceived?: Prisma.FriendRequestCreateNestedManyWithoutToUserInput
+  friendsAsUser1?: Prisma.FriendCreateNestedManyWithoutUser1Input
+  friendsAsUser2?: Prisma.FriendCreateNestedManyWithoutUser2Input
+  blocksInitiated?: Prisma.BlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.BlockCreateNestedManyWithoutBlockedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeCreateNestedManyWithoutOwnerInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeCreateNestedManyWithoutUsedByUserInput
+  location?: Prisma.UserLocationCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -652,6 +857,15 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
   reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutUserInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutFromUserInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutToUserInput
+  friendsAsUser1?: Prisma.FriendUncheckedCreateNestedManyWithoutUser1Input
+  friendsAsUser2?: Prisma.FriendUncheckedCreateNestedManyWithoutUser2Input
+  blocksInitiated?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutOwnerInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutUsedByUserInput
+  location?: Prisma.UserLocationUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -688,6 +902,15 @@ export type UserUpdateWithoutRefreshTokensInput = {
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
   reactions?: Prisma.ReactionUpdateManyWithoutUserNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUpdateManyWithoutFromUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUpdateManyWithoutToUserNestedInput
+  friendsAsUser1?: Prisma.FriendUpdateManyWithoutUser1NestedInput
+  friendsAsUser2?: Prisma.FriendUpdateManyWithoutUser2NestedInput
+  blocksInitiated?: Prisma.BlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.BlockUpdateManyWithoutBlockedNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUpdateManyWithoutOwnerNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUpdateManyWithoutUsedByUserNestedInput
+  location?: Prisma.UserLocationUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -708,6 +931,15 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
   reactions?: Prisma.ReactionUncheckedUpdateManyWithoutUserNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedUpdateManyWithoutFromUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedUpdateManyWithoutToUserNestedInput
+  friendsAsUser1?: Prisma.FriendUncheckedUpdateManyWithoutUser1NestedInput
+  friendsAsUser2?: Prisma.FriendUncheckedUpdateManyWithoutUser2NestedInput
+  blocksInitiated?: Prisma.BlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.BlockUncheckedUpdateManyWithoutBlockedNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutOwnerNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutUsedByUserNestedInput
+  location?: Prisma.UserLocationUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEmailVerificationTokensInput = {
@@ -728,6 +960,15 @@ export type UserCreateWithoutEmailVerificationTokensInput = {
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
   reactions?: Prisma.ReactionCreateNestedManyWithoutUserInput
+  friendRequestsSent?: Prisma.FriendRequestCreateNestedManyWithoutFromUserInput
+  friendRequestsReceived?: Prisma.FriendRequestCreateNestedManyWithoutToUserInput
+  friendsAsUser1?: Prisma.FriendCreateNestedManyWithoutUser1Input
+  friendsAsUser2?: Prisma.FriendCreateNestedManyWithoutUser2Input
+  blocksInitiated?: Prisma.BlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.BlockCreateNestedManyWithoutBlockedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeCreateNestedManyWithoutOwnerInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeCreateNestedManyWithoutUsedByUserInput
+  location?: Prisma.UserLocationCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEmailVerificationTokensInput = {
@@ -748,6 +989,15 @@ export type UserUncheckedCreateWithoutEmailVerificationTokensInput = {
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
   reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutUserInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutFromUserInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutToUserInput
+  friendsAsUser1?: Prisma.FriendUncheckedCreateNestedManyWithoutUser1Input
+  friendsAsUser2?: Prisma.FriendUncheckedCreateNestedManyWithoutUser2Input
+  blocksInitiated?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutOwnerInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutUsedByUserInput
+  location?: Prisma.UserLocationUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEmailVerificationTokensInput = {
@@ -784,6 +1034,15 @@ export type UserUpdateWithoutEmailVerificationTokensInput = {
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
   reactions?: Prisma.ReactionUpdateManyWithoutUserNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUpdateManyWithoutFromUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUpdateManyWithoutToUserNestedInput
+  friendsAsUser1?: Prisma.FriendUpdateManyWithoutUser1NestedInput
+  friendsAsUser2?: Prisma.FriendUpdateManyWithoutUser2NestedInput
+  blocksInitiated?: Prisma.BlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.BlockUpdateManyWithoutBlockedNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUpdateManyWithoutOwnerNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUpdateManyWithoutUsedByUserNestedInput
+  location?: Prisma.UserLocationUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmailVerificationTokensInput = {
@@ -804,6 +1063,15 @@ export type UserUncheckedUpdateWithoutEmailVerificationTokensInput = {
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
   reactions?: Prisma.ReactionUncheckedUpdateManyWithoutUserNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedUpdateManyWithoutFromUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedUpdateManyWithoutToUserNestedInput
+  friendsAsUser1?: Prisma.FriendUncheckedUpdateManyWithoutUser1NestedInput
+  friendsAsUser2?: Prisma.FriendUncheckedUpdateManyWithoutUser2NestedInput
+  blocksInitiated?: Prisma.BlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.BlockUncheckedUpdateManyWithoutBlockedNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutOwnerNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutUsedByUserNestedInput
+  location?: Prisma.UserLocationUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPasswordResetTokensInput = {
@@ -824,6 +1092,15 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
   reactions?: Prisma.ReactionCreateNestedManyWithoutUserInput
+  friendRequestsSent?: Prisma.FriendRequestCreateNestedManyWithoutFromUserInput
+  friendRequestsReceived?: Prisma.FriendRequestCreateNestedManyWithoutToUserInput
+  friendsAsUser1?: Prisma.FriendCreateNestedManyWithoutUser1Input
+  friendsAsUser2?: Prisma.FriendCreateNestedManyWithoutUser2Input
+  blocksInitiated?: Prisma.BlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.BlockCreateNestedManyWithoutBlockedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeCreateNestedManyWithoutOwnerInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeCreateNestedManyWithoutUsedByUserInput
+  location?: Prisma.UserLocationCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
@@ -844,6 +1121,15 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
   reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutUserInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutFromUserInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutToUserInput
+  friendsAsUser1?: Prisma.FriendUncheckedCreateNestedManyWithoutUser1Input
+  friendsAsUser2?: Prisma.FriendUncheckedCreateNestedManyWithoutUser2Input
+  blocksInitiated?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutOwnerInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutUsedByUserInput
+  location?: Prisma.UserLocationUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPasswordResetTokensInput = {
@@ -880,6 +1166,15 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
   reactions?: Prisma.ReactionUpdateManyWithoutUserNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUpdateManyWithoutFromUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUpdateManyWithoutToUserNestedInput
+  friendsAsUser1?: Prisma.FriendUpdateManyWithoutUser1NestedInput
+  friendsAsUser2?: Prisma.FriendUpdateManyWithoutUser2NestedInput
+  blocksInitiated?: Prisma.BlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.BlockUpdateManyWithoutBlockedNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUpdateManyWithoutOwnerNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUpdateManyWithoutUsedByUserNestedInput
+  location?: Prisma.UserLocationUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
@@ -900,6 +1195,15 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
   reactions?: Prisma.ReactionUncheckedUpdateManyWithoutUserNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedUpdateManyWithoutFromUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedUpdateManyWithoutToUserNestedInput
+  friendsAsUser1?: Prisma.FriendUncheckedUpdateManyWithoutUser1NestedInput
+  friendsAsUser2?: Prisma.FriendUncheckedUpdateManyWithoutUser2NestedInput
+  blocksInitiated?: Prisma.BlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.BlockUncheckedUpdateManyWithoutBlockedNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutOwnerNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutUsedByUserNestedInput
+  location?: Prisma.UserLocationUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPostsInput = {
@@ -920,6 +1224,15 @@ export type UserCreateWithoutPostsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
   reactions?: Prisma.ReactionCreateNestedManyWithoutUserInput
+  friendRequestsSent?: Prisma.FriendRequestCreateNestedManyWithoutFromUserInput
+  friendRequestsReceived?: Prisma.FriendRequestCreateNestedManyWithoutToUserInput
+  friendsAsUser1?: Prisma.FriendCreateNestedManyWithoutUser1Input
+  friendsAsUser2?: Prisma.FriendCreateNestedManyWithoutUser2Input
+  blocksInitiated?: Prisma.BlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.BlockCreateNestedManyWithoutBlockedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeCreateNestedManyWithoutOwnerInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeCreateNestedManyWithoutUsedByUserInput
+  location?: Prisma.UserLocationCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPostsInput = {
@@ -940,6 +1253,15 @@ export type UserUncheckedCreateWithoutPostsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
   reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutUserInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutFromUserInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutToUserInput
+  friendsAsUser1?: Prisma.FriendUncheckedCreateNestedManyWithoutUser1Input
+  friendsAsUser2?: Prisma.FriendUncheckedCreateNestedManyWithoutUser2Input
+  blocksInitiated?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutOwnerInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutUsedByUserInput
+  location?: Prisma.UserLocationUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPostsInput = {
@@ -976,6 +1298,15 @@ export type UserUpdateWithoutPostsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
   reactions?: Prisma.ReactionUpdateManyWithoutUserNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUpdateManyWithoutFromUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUpdateManyWithoutToUserNestedInput
+  friendsAsUser1?: Prisma.FriendUpdateManyWithoutUser1NestedInput
+  friendsAsUser2?: Prisma.FriendUpdateManyWithoutUser2NestedInput
+  blocksInitiated?: Prisma.BlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.BlockUpdateManyWithoutBlockedNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUpdateManyWithoutOwnerNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUpdateManyWithoutUsedByUserNestedInput
+  location?: Prisma.UserLocationUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostsInput = {
@@ -996,6 +1327,15 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
   reactions?: Prisma.ReactionUncheckedUpdateManyWithoutUserNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedUpdateManyWithoutFromUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedUpdateManyWithoutToUserNestedInput
+  friendsAsUser1?: Prisma.FriendUncheckedUpdateManyWithoutUser1NestedInput
+  friendsAsUser2?: Prisma.FriendUncheckedUpdateManyWithoutUser2NestedInput
+  blocksInitiated?: Prisma.BlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.BlockUncheckedUpdateManyWithoutBlockedNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutOwnerNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutUsedByUserNestedInput
+  location?: Prisma.UserLocationUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCommentsInput = {
@@ -1016,6 +1356,15 @@ export type UserCreateWithoutCommentsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   reactions?: Prisma.ReactionCreateNestedManyWithoutUserInput
+  friendRequestsSent?: Prisma.FriendRequestCreateNestedManyWithoutFromUserInput
+  friendRequestsReceived?: Prisma.FriendRequestCreateNestedManyWithoutToUserInput
+  friendsAsUser1?: Prisma.FriendCreateNestedManyWithoutUser1Input
+  friendsAsUser2?: Prisma.FriendCreateNestedManyWithoutUser2Input
+  blocksInitiated?: Prisma.BlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.BlockCreateNestedManyWithoutBlockedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeCreateNestedManyWithoutOwnerInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeCreateNestedManyWithoutUsedByUserInput
+  location?: Prisma.UserLocationCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCommentsInput = {
@@ -1036,6 +1385,15 @@ export type UserUncheckedCreateWithoutCommentsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutUserInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutFromUserInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutToUserInput
+  friendsAsUser1?: Prisma.FriendUncheckedCreateNestedManyWithoutUser1Input
+  friendsAsUser2?: Prisma.FriendUncheckedCreateNestedManyWithoutUser2Input
+  blocksInitiated?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutOwnerInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutUsedByUserInput
+  location?: Prisma.UserLocationUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCommentsInput = {
@@ -1072,6 +1430,15 @@ export type UserUpdateWithoutCommentsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   reactions?: Prisma.ReactionUpdateManyWithoutUserNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUpdateManyWithoutFromUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUpdateManyWithoutToUserNestedInput
+  friendsAsUser1?: Prisma.FriendUpdateManyWithoutUser1NestedInput
+  friendsAsUser2?: Prisma.FriendUpdateManyWithoutUser2NestedInput
+  blocksInitiated?: Prisma.BlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.BlockUpdateManyWithoutBlockedNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUpdateManyWithoutOwnerNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUpdateManyWithoutUsedByUserNestedInput
+  location?: Prisma.UserLocationUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -1092,6 +1459,15 @@ export type UserUncheckedUpdateWithoutCommentsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   reactions?: Prisma.ReactionUncheckedUpdateManyWithoutUserNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedUpdateManyWithoutFromUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedUpdateManyWithoutToUserNestedInput
+  friendsAsUser1?: Prisma.FriendUncheckedUpdateManyWithoutUser1NestedInput
+  friendsAsUser2?: Prisma.FriendUncheckedUpdateManyWithoutUser2NestedInput
+  blocksInitiated?: Prisma.BlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.BlockUncheckedUpdateManyWithoutBlockedNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutOwnerNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutUsedByUserNestedInput
+  location?: Prisma.UserLocationUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReactionsInput = {
@@ -1112,6 +1488,15 @@ export type UserCreateWithoutReactionsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
   comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
+  friendRequestsSent?: Prisma.FriendRequestCreateNestedManyWithoutFromUserInput
+  friendRequestsReceived?: Prisma.FriendRequestCreateNestedManyWithoutToUserInput
+  friendsAsUser1?: Prisma.FriendCreateNestedManyWithoutUser1Input
+  friendsAsUser2?: Prisma.FriendCreateNestedManyWithoutUser2Input
+  blocksInitiated?: Prisma.BlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.BlockCreateNestedManyWithoutBlockedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeCreateNestedManyWithoutOwnerInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeCreateNestedManyWithoutUsedByUserInput
+  location?: Prisma.UserLocationCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReactionsInput = {
@@ -1132,6 +1517,15 @@ export type UserUncheckedCreateWithoutReactionsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutFromUserInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutToUserInput
+  friendsAsUser1?: Prisma.FriendUncheckedCreateNestedManyWithoutUser1Input
+  friendsAsUser2?: Prisma.FriendUncheckedCreateNestedManyWithoutUser2Input
+  blocksInitiated?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutOwnerInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutUsedByUserInput
+  location?: Prisma.UserLocationUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReactionsInput = {
@@ -1168,6 +1562,15 @@ export type UserUpdateWithoutReactionsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
   comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUpdateManyWithoutFromUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUpdateManyWithoutToUserNestedInput
+  friendsAsUser1?: Prisma.FriendUpdateManyWithoutUser1NestedInput
+  friendsAsUser2?: Prisma.FriendUpdateManyWithoutUser2NestedInput
+  blocksInitiated?: Prisma.BlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.BlockUpdateManyWithoutBlockedNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUpdateManyWithoutOwnerNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUpdateManyWithoutUsedByUserNestedInput
+  location?: Prisma.UserLocationUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReactionsInput = {
@@ -1188,6 +1591,1203 @@ export type UserUncheckedUpdateWithoutReactionsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedUpdateManyWithoutFromUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedUpdateManyWithoutToUserNestedInput
+  friendsAsUser1?: Prisma.FriendUncheckedUpdateManyWithoutUser1NestedInput
+  friendsAsUser2?: Prisma.FriendUncheckedUpdateManyWithoutUser2NestedInput
+  blocksInitiated?: Prisma.BlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.BlockUncheckedUpdateManyWithoutBlockedNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutOwnerNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutUsedByUserNestedInput
+  location?: Prisma.UserLocationUncheckedUpdateOneWithoutUserNestedInput
+}
+
+export type UserCreateWithoutFriendRequestsSentInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  avatarUrl?: string | null
+  bio?: string | null
+  role?: $Enums.UserRole
+  isEmailVerified?: boolean
+  isBanned?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
+  reactions?: Prisma.ReactionCreateNestedManyWithoutUserInput
+  friendRequestsReceived?: Prisma.FriendRequestCreateNestedManyWithoutToUserInput
+  friendsAsUser1?: Prisma.FriendCreateNestedManyWithoutUser1Input
+  friendsAsUser2?: Prisma.FriendCreateNestedManyWithoutUser2Input
+  blocksInitiated?: Prisma.BlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.BlockCreateNestedManyWithoutBlockedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeCreateNestedManyWithoutOwnerInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeCreateNestedManyWithoutUsedByUserInput
+  location?: Prisma.UserLocationCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutFriendRequestsSentInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  avatarUrl?: string | null
+  bio?: string | null
+  role?: $Enums.UserRole
+  isEmailVerified?: boolean
+  isBanned?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
+  reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutUserInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutToUserInput
+  friendsAsUser1?: Prisma.FriendUncheckedCreateNestedManyWithoutUser1Input
+  friendsAsUser2?: Prisma.FriendUncheckedCreateNestedManyWithoutUser2Input
+  blocksInitiated?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutOwnerInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutUsedByUserInput
+  location?: Prisma.UserLocationUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutFriendRequestsSentInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutFriendRequestsSentInput, Prisma.UserUncheckedCreateWithoutFriendRequestsSentInput>
+}
+
+export type UserCreateWithoutFriendRequestsReceivedInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  avatarUrl?: string | null
+  bio?: string | null
+  role?: $Enums.UserRole
+  isEmailVerified?: boolean
+  isBanned?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
+  reactions?: Prisma.ReactionCreateNestedManyWithoutUserInput
+  friendRequestsSent?: Prisma.FriendRequestCreateNestedManyWithoutFromUserInput
+  friendsAsUser1?: Prisma.FriendCreateNestedManyWithoutUser1Input
+  friendsAsUser2?: Prisma.FriendCreateNestedManyWithoutUser2Input
+  blocksInitiated?: Prisma.BlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.BlockCreateNestedManyWithoutBlockedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeCreateNestedManyWithoutOwnerInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeCreateNestedManyWithoutUsedByUserInput
+  location?: Prisma.UserLocationCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutFriendRequestsReceivedInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  avatarUrl?: string | null
+  bio?: string | null
+  role?: $Enums.UserRole
+  isEmailVerified?: boolean
+  isBanned?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
+  reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutUserInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutFromUserInput
+  friendsAsUser1?: Prisma.FriendUncheckedCreateNestedManyWithoutUser1Input
+  friendsAsUser2?: Prisma.FriendUncheckedCreateNestedManyWithoutUser2Input
+  blocksInitiated?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutOwnerInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutUsedByUserInput
+  location?: Prisma.UserLocationUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutFriendRequestsReceivedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutFriendRequestsReceivedInput, Prisma.UserUncheckedCreateWithoutFriendRequestsReceivedInput>
+}
+
+export type UserUpsertWithoutFriendRequestsSentInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutFriendRequestsSentInput, Prisma.UserUncheckedUpdateWithoutFriendRequestsSentInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutFriendRequestsSentInput, Prisma.UserUncheckedCreateWithoutFriendRequestsSentInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutFriendRequestsSentInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutFriendRequestsSentInput, Prisma.UserUncheckedUpdateWithoutFriendRequestsSentInput>
+}
+
+export type UserUpdateWithoutFriendRequestsSentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
+  reactions?: Prisma.ReactionUpdateManyWithoutUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUpdateManyWithoutToUserNestedInput
+  friendsAsUser1?: Prisma.FriendUpdateManyWithoutUser1NestedInput
+  friendsAsUser2?: Prisma.FriendUpdateManyWithoutUser2NestedInput
+  blocksInitiated?: Prisma.BlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.BlockUpdateManyWithoutBlockedNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUpdateManyWithoutOwnerNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUpdateManyWithoutUsedByUserNestedInput
+  location?: Prisma.UserLocationUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutFriendRequestsSentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
+  reactions?: Prisma.ReactionUncheckedUpdateManyWithoutUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedUpdateManyWithoutToUserNestedInput
+  friendsAsUser1?: Prisma.FriendUncheckedUpdateManyWithoutUser1NestedInput
+  friendsAsUser2?: Prisma.FriendUncheckedUpdateManyWithoutUser2NestedInput
+  blocksInitiated?: Prisma.BlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.BlockUncheckedUpdateManyWithoutBlockedNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutOwnerNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutUsedByUserNestedInput
+  location?: Prisma.UserLocationUncheckedUpdateOneWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutFriendRequestsReceivedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutFriendRequestsReceivedInput, Prisma.UserUncheckedUpdateWithoutFriendRequestsReceivedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutFriendRequestsReceivedInput, Prisma.UserUncheckedCreateWithoutFriendRequestsReceivedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutFriendRequestsReceivedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutFriendRequestsReceivedInput, Prisma.UserUncheckedUpdateWithoutFriendRequestsReceivedInput>
+}
+
+export type UserUpdateWithoutFriendRequestsReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
+  reactions?: Prisma.ReactionUpdateManyWithoutUserNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUpdateManyWithoutFromUserNestedInput
+  friendsAsUser1?: Prisma.FriendUpdateManyWithoutUser1NestedInput
+  friendsAsUser2?: Prisma.FriendUpdateManyWithoutUser2NestedInput
+  blocksInitiated?: Prisma.BlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.BlockUpdateManyWithoutBlockedNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUpdateManyWithoutOwnerNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUpdateManyWithoutUsedByUserNestedInput
+  location?: Prisma.UserLocationUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutFriendRequestsReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
+  reactions?: Prisma.ReactionUncheckedUpdateManyWithoutUserNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedUpdateManyWithoutFromUserNestedInput
+  friendsAsUser1?: Prisma.FriendUncheckedUpdateManyWithoutUser1NestedInput
+  friendsAsUser2?: Prisma.FriendUncheckedUpdateManyWithoutUser2NestedInput
+  blocksInitiated?: Prisma.BlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.BlockUncheckedUpdateManyWithoutBlockedNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutOwnerNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutUsedByUserNestedInput
+  location?: Prisma.UserLocationUncheckedUpdateOneWithoutUserNestedInput
+}
+
+export type UserCreateWithoutFriendsAsUser1Input = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  avatarUrl?: string | null
+  bio?: string | null
+  role?: $Enums.UserRole
+  isEmailVerified?: boolean
+  isBanned?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
+  reactions?: Prisma.ReactionCreateNestedManyWithoutUserInput
+  friendRequestsSent?: Prisma.FriendRequestCreateNestedManyWithoutFromUserInput
+  friendRequestsReceived?: Prisma.FriendRequestCreateNestedManyWithoutToUserInput
+  friendsAsUser2?: Prisma.FriendCreateNestedManyWithoutUser2Input
+  blocksInitiated?: Prisma.BlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.BlockCreateNestedManyWithoutBlockedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeCreateNestedManyWithoutOwnerInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeCreateNestedManyWithoutUsedByUserInput
+  location?: Prisma.UserLocationCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutFriendsAsUser1Input = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  avatarUrl?: string | null
+  bio?: string | null
+  role?: $Enums.UserRole
+  isEmailVerified?: boolean
+  isBanned?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
+  reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutUserInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutFromUserInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutToUserInput
+  friendsAsUser2?: Prisma.FriendUncheckedCreateNestedManyWithoutUser2Input
+  blocksInitiated?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutOwnerInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutUsedByUserInput
+  location?: Prisma.UserLocationUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutFriendsAsUser1Input = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutFriendsAsUser1Input, Prisma.UserUncheckedCreateWithoutFriendsAsUser1Input>
+}
+
+export type UserCreateWithoutFriendsAsUser2Input = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  avatarUrl?: string | null
+  bio?: string | null
+  role?: $Enums.UserRole
+  isEmailVerified?: boolean
+  isBanned?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
+  reactions?: Prisma.ReactionCreateNestedManyWithoutUserInput
+  friendRequestsSent?: Prisma.FriendRequestCreateNestedManyWithoutFromUserInput
+  friendRequestsReceived?: Prisma.FriendRequestCreateNestedManyWithoutToUserInput
+  friendsAsUser1?: Prisma.FriendCreateNestedManyWithoutUser1Input
+  blocksInitiated?: Prisma.BlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.BlockCreateNestedManyWithoutBlockedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeCreateNestedManyWithoutOwnerInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeCreateNestedManyWithoutUsedByUserInput
+  location?: Prisma.UserLocationCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutFriendsAsUser2Input = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  avatarUrl?: string | null
+  bio?: string | null
+  role?: $Enums.UserRole
+  isEmailVerified?: boolean
+  isBanned?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
+  reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutUserInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutFromUserInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutToUserInput
+  friendsAsUser1?: Prisma.FriendUncheckedCreateNestedManyWithoutUser1Input
+  blocksInitiated?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutOwnerInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutUsedByUserInput
+  location?: Prisma.UserLocationUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutFriendsAsUser2Input = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutFriendsAsUser2Input, Prisma.UserUncheckedCreateWithoutFriendsAsUser2Input>
+}
+
+export type UserUpsertWithoutFriendsAsUser1Input = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutFriendsAsUser1Input, Prisma.UserUncheckedUpdateWithoutFriendsAsUser1Input>
+  create: Prisma.XOR<Prisma.UserCreateWithoutFriendsAsUser1Input, Prisma.UserUncheckedCreateWithoutFriendsAsUser1Input>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutFriendsAsUser1Input = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutFriendsAsUser1Input, Prisma.UserUncheckedUpdateWithoutFriendsAsUser1Input>
+}
+
+export type UserUpdateWithoutFriendsAsUser1Input = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
+  reactions?: Prisma.ReactionUpdateManyWithoutUserNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUpdateManyWithoutFromUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUpdateManyWithoutToUserNestedInput
+  friendsAsUser2?: Prisma.FriendUpdateManyWithoutUser2NestedInput
+  blocksInitiated?: Prisma.BlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.BlockUpdateManyWithoutBlockedNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUpdateManyWithoutOwnerNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUpdateManyWithoutUsedByUserNestedInput
+  location?: Prisma.UserLocationUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutFriendsAsUser1Input = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
+  reactions?: Prisma.ReactionUncheckedUpdateManyWithoutUserNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedUpdateManyWithoutFromUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedUpdateManyWithoutToUserNestedInput
+  friendsAsUser2?: Prisma.FriendUncheckedUpdateManyWithoutUser2NestedInput
+  blocksInitiated?: Prisma.BlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.BlockUncheckedUpdateManyWithoutBlockedNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutOwnerNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutUsedByUserNestedInput
+  location?: Prisma.UserLocationUncheckedUpdateOneWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutFriendsAsUser2Input = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutFriendsAsUser2Input, Prisma.UserUncheckedUpdateWithoutFriendsAsUser2Input>
+  create: Prisma.XOR<Prisma.UserCreateWithoutFriendsAsUser2Input, Prisma.UserUncheckedCreateWithoutFriendsAsUser2Input>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutFriendsAsUser2Input = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutFriendsAsUser2Input, Prisma.UserUncheckedUpdateWithoutFriendsAsUser2Input>
+}
+
+export type UserUpdateWithoutFriendsAsUser2Input = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
+  reactions?: Prisma.ReactionUpdateManyWithoutUserNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUpdateManyWithoutFromUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUpdateManyWithoutToUserNestedInput
+  friendsAsUser1?: Prisma.FriendUpdateManyWithoutUser1NestedInput
+  blocksInitiated?: Prisma.BlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.BlockUpdateManyWithoutBlockedNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUpdateManyWithoutOwnerNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUpdateManyWithoutUsedByUserNestedInput
+  location?: Prisma.UserLocationUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutFriendsAsUser2Input = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
+  reactions?: Prisma.ReactionUncheckedUpdateManyWithoutUserNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedUpdateManyWithoutFromUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedUpdateManyWithoutToUserNestedInput
+  friendsAsUser1?: Prisma.FriendUncheckedUpdateManyWithoutUser1NestedInput
+  blocksInitiated?: Prisma.BlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.BlockUncheckedUpdateManyWithoutBlockedNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutOwnerNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutUsedByUserNestedInput
+  location?: Prisma.UserLocationUncheckedUpdateOneWithoutUserNestedInput
+}
+
+export type UserCreateWithoutBlocksInitiatedInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  avatarUrl?: string | null
+  bio?: string | null
+  role?: $Enums.UserRole
+  isEmailVerified?: boolean
+  isBanned?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
+  reactions?: Prisma.ReactionCreateNestedManyWithoutUserInput
+  friendRequestsSent?: Prisma.FriendRequestCreateNestedManyWithoutFromUserInput
+  friendRequestsReceived?: Prisma.FriendRequestCreateNestedManyWithoutToUserInput
+  friendsAsUser1?: Prisma.FriendCreateNestedManyWithoutUser1Input
+  friendsAsUser2?: Prisma.FriendCreateNestedManyWithoutUser2Input
+  blocksReceived?: Prisma.BlockCreateNestedManyWithoutBlockedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeCreateNestedManyWithoutOwnerInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeCreateNestedManyWithoutUsedByUserInput
+  location?: Prisma.UserLocationCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutBlocksInitiatedInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  avatarUrl?: string | null
+  bio?: string | null
+  role?: $Enums.UserRole
+  isEmailVerified?: boolean
+  isBanned?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
+  reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutUserInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutFromUserInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutToUserInput
+  friendsAsUser1?: Prisma.FriendUncheckedCreateNestedManyWithoutUser1Input
+  friendsAsUser2?: Prisma.FriendUncheckedCreateNestedManyWithoutUser2Input
+  blocksReceived?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutOwnerInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutUsedByUserInput
+  location?: Prisma.UserLocationUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutBlocksInitiatedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBlocksInitiatedInput, Prisma.UserUncheckedCreateWithoutBlocksInitiatedInput>
+}
+
+export type UserCreateWithoutBlocksReceivedInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  avatarUrl?: string | null
+  bio?: string | null
+  role?: $Enums.UserRole
+  isEmailVerified?: boolean
+  isBanned?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
+  reactions?: Prisma.ReactionCreateNestedManyWithoutUserInput
+  friendRequestsSent?: Prisma.FriendRequestCreateNestedManyWithoutFromUserInput
+  friendRequestsReceived?: Prisma.FriendRequestCreateNestedManyWithoutToUserInput
+  friendsAsUser1?: Prisma.FriendCreateNestedManyWithoutUser1Input
+  friendsAsUser2?: Prisma.FriendCreateNestedManyWithoutUser2Input
+  blocksInitiated?: Prisma.BlockCreateNestedManyWithoutBlockerInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeCreateNestedManyWithoutOwnerInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeCreateNestedManyWithoutUsedByUserInput
+  location?: Prisma.UserLocationCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutBlocksReceivedInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  avatarUrl?: string | null
+  bio?: string | null
+  role?: $Enums.UserRole
+  isEmailVerified?: boolean
+  isBanned?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
+  reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutUserInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutFromUserInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutToUserInput
+  friendsAsUser1?: Prisma.FriendUncheckedCreateNestedManyWithoutUser1Input
+  friendsAsUser2?: Prisma.FriendUncheckedCreateNestedManyWithoutUser2Input
+  blocksInitiated?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockerInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutOwnerInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutUsedByUserInput
+  location?: Prisma.UserLocationUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutBlocksReceivedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBlocksReceivedInput, Prisma.UserUncheckedCreateWithoutBlocksReceivedInput>
+}
+
+export type UserUpsertWithoutBlocksInitiatedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBlocksInitiatedInput, Prisma.UserUncheckedUpdateWithoutBlocksInitiatedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBlocksInitiatedInput, Prisma.UserUncheckedCreateWithoutBlocksInitiatedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutBlocksInitiatedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBlocksInitiatedInput, Prisma.UserUncheckedUpdateWithoutBlocksInitiatedInput>
+}
+
+export type UserUpdateWithoutBlocksInitiatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
+  reactions?: Prisma.ReactionUpdateManyWithoutUserNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUpdateManyWithoutFromUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUpdateManyWithoutToUserNestedInput
+  friendsAsUser1?: Prisma.FriendUpdateManyWithoutUser1NestedInput
+  friendsAsUser2?: Prisma.FriendUpdateManyWithoutUser2NestedInput
+  blocksReceived?: Prisma.BlockUpdateManyWithoutBlockedNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUpdateManyWithoutOwnerNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUpdateManyWithoutUsedByUserNestedInput
+  location?: Prisma.UserLocationUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBlocksInitiatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
+  reactions?: Prisma.ReactionUncheckedUpdateManyWithoutUserNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedUpdateManyWithoutFromUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedUpdateManyWithoutToUserNestedInput
+  friendsAsUser1?: Prisma.FriendUncheckedUpdateManyWithoutUser1NestedInput
+  friendsAsUser2?: Prisma.FriendUncheckedUpdateManyWithoutUser2NestedInput
+  blocksReceived?: Prisma.BlockUncheckedUpdateManyWithoutBlockedNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutOwnerNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutUsedByUserNestedInput
+  location?: Prisma.UserLocationUncheckedUpdateOneWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutBlocksReceivedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBlocksReceivedInput, Prisma.UserUncheckedUpdateWithoutBlocksReceivedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBlocksReceivedInput, Prisma.UserUncheckedCreateWithoutBlocksReceivedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutBlocksReceivedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBlocksReceivedInput, Prisma.UserUncheckedUpdateWithoutBlocksReceivedInput>
+}
+
+export type UserUpdateWithoutBlocksReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
+  reactions?: Prisma.ReactionUpdateManyWithoutUserNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUpdateManyWithoutFromUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUpdateManyWithoutToUserNestedInput
+  friendsAsUser1?: Prisma.FriendUpdateManyWithoutUser1NestedInput
+  friendsAsUser2?: Prisma.FriendUpdateManyWithoutUser2NestedInput
+  blocksInitiated?: Prisma.BlockUpdateManyWithoutBlockerNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUpdateManyWithoutOwnerNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUpdateManyWithoutUsedByUserNestedInput
+  location?: Prisma.UserLocationUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBlocksReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
+  reactions?: Prisma.ReactionUncheckedUpdateManyWithoutUserNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedUpdateManyWithoutFromUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedUpdateManyWithoutToUserNestedInput
+  friendsAsUser1?: Prisma.FriendUncheckedUpdateManyWithoutUser1NestedInput
+  friendsAsUser2?: Prisma.FriendUncheckedUpdateManyWithoutUser2NestedInput
+  blocksInitiated?: Prisma.BlockUncheckedUpdateManyWithoutBlockerNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutOwnerNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutUsedByUserNestedInput
+  location?: Prisma.UserLocationUncheckedUpdateOneWithoutUserNestedInput
+}
+
+export type UserCreateWithoutInviteCodesOwnedInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  avatarUrl?: string | null
+  bio?: string | null
+  role?: $Enums.UserRole
+  isEmailVerified?: boolean
+  isBanned?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
+  reactions?: Prisma.ReactionCreateNestedManyWithoutUserInput
+  friendRequestsSent?: Prisma.FriendRequestCreateNestedManyWithoutFromUserInput
+  friendRequestsReceived?: Prisma.FriendRequestCreateNestedManyWithoutToUserInput
+  friendsAsUser1?: Prisma.FriendCreateNestedManyWithoutUser1Input
+  friendsAsUser2?: Prisma.FriendCreateNestedManyWithoutUser2Input
+  blocksInitiated?: Prisma.BlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.BlockCreateNestedManyWithoutBlockedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeCreateNestedManyWithoutUsedByUserInput
+  location?: Prisma.UserLocationCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutInviteCodesOwnedInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  avatarUrl?: string | null
+  bio?: string | null
+  role?: $Enums.UserRole
+  isEmailVerified?: boolean
+  isBanned?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
+  reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutUserInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutFromUserInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutToUserInput
+  friendsAsUser1?: Prisma.FriendUncheckedCreateNestedManyWithoutUser1Input
+  friendsAsUser2?: Prisma.FriendUncheckedCreateNestedManyWithoutUser2Input
+  blocksInitiated?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutUsedByUserInput
+  location?: Prisma.UserLocationUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutInviteCodesOwnedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutInviteCodesOwnedInput, Prisma.UserUncheckedCreateWithoutInviteCodesOwnedInput>
+}
+
+export type UserCreateWithoutInviteCodesUsedInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  avatarUrl?: string | null
+  bio?: string | null
+  role?: $Enums.UserRole
+  isEmailVerified?: boolean
+  isBanned?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
+  reactions?: Prisma.ReactionCreateNestedManyWithoutUserInput
+  friendRequestsSent?: Prisma.FriendRequestCreateNestedManyWithoutFromUserInput
+  friendRequestsReceived?: Prisma.FriendRequestCreateNestedManyWithoutToUserInput
+  friendsAsUser1?: Prisma.FriendCreateNestedManyWithoutUser1Input
+  friendsAsUser2?: Prisma.FriendCreateNestedManyWithoutUser2Input
+  blocksInitiated?: Prisma.BlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.BlockCreateNestedManyWithoutBlockedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeCreateNestedManyWithoutOwnerInput
+  location?: Prisma.UserLocationCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutInviteCodesUsedInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  avatarUrl?: string | null
+  bio?: string | null
+  role?: $Enums.UserRole
+  isEmailVerified?: boolean
+  isBanned?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
+  reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutUserInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutFromUserInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutToUserInput
+  friendsAsUser1?: Prisma.FriendUncheckedCreateNestedManyWithoutUser1Input
+  friendsAsUser2?: Prisma.FriendUncheckedCreateNestedManyWithoutUser2Input
+  blocksInitiated?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutOwnerInput
+  location?: Prisma.UserLocationUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutInviteCodesUsedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutInviteCodesUsedInput, Prisma.UserUncheckedCreateWithoutInviteCodesUsedInput>
+}
+
+export type UserUpsertWithoutInviteCodesOwnedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutInviteCodesOwnedInput, Prisma.UserUncheckedUpdateWithoutInviteCodesOwnedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutInviteCodesOwnedInput, Prisma.UserUncheckedCreateWithoutInviteCodesOwnedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutInviteCodesOwnedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutInviteCodesOwnedInput, Prisma.UserUncheckedUpdateWithoutInviteCodesOwnedInput>
+}
+
+export type UserUpdateWithoutInviteCodesOwnedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
+  reactions?: Prisma.ReactionUpdateManyWithoutUserNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUpdateManyWithoutFromUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUpdateManyWithoutToUserNestedInput
+  friendsAsUser1?: Prisma.FriendUpdateManyWithoutUser1NestedInput
+  friendsAsUser2?: Prisma.FriendUpdateManyWithoutUser2NestedInput
+  blocksInitiated?: Prisma.BlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.BlockUpdateManyWithoutBlockedNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUpdateManyWithoutUsedByUserNestedInput
+  location?: Prisma.UserLocationUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutInviteCodesOwnedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
+  reactions?: Prisma.ReactionUncheckedUpdateManyWithoutUserNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedUpdateManyWithoutFromUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedUpdateManyWithoutToUserNestedInput
+  friendsAsUser1?: Prisma.FriendUncheckedUpdateManyWithoutUser1NestedInput
+  friendsAsUser2?: Prisma.FriendUncheckedUpdateManyWithoutUser2NestedInput
+  blocksInitiated?: Prisma.BlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.BlockUncheckedUpdateManyWithoutBlockedNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutUsedByUserNestedInput
+  location?: Prisma.UserLocationUncheckedUpdateOneWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutInviteCodesUsedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutInviteCodesUsedInput, Prisma.UserUncheckedUpdateWithoutInviteCodesUsedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutInviteCodesUsedInput, Prisma.UserUncheckedCreateWithoutInviteCodesUsedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutInviteCodesUsedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutInviteCodesUsedInput, Prisma.UserUncheckedUpdateWithoutInviteCodesUsedInput>
+}
+
+export type UserUpdateWithoutInviteCodesUsedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
+  reactions?: Prisma.ReactionUpdateManyWithoutUserNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUpdateManyWithoutFromUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUpdateManyWithoutToUserNestedInput
+  friendsAsUser1?: Prisma.FriendUpdateManyWithoutUser1NestedInput
+  friendsAsUser2?: Prisma.FriendUpdateManyWithoutUser2NestedInput
+  blocksInitiated?: Prisma.BlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.BlockUpdateManyWithoutBlockedNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUpdateManyWithoutOwnerNestedInput
+  location?: Prisma.UserLocationUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutInviteCodesUsedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
+  reactions?: Prisma.ReactionUncheckedUpdateManyWithoutUserNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedUpdateManyWithoutFromUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedUpdateManyWithoutToUserNestedInput
+  friendsAsUser1?: Prisma.FriendUncheckedUpdateManyWithoutUser1NestedInput
+  friendsAsUser2?: Prisma.FriendUncheckedUpdateManyWithoutUser2NestedInput
+  blocksInitiated?: Prisma.BlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.BlockUncheckedUpdateManyWithoutBlockedNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutOwnerNestedInput
+  location?: Prisma.UserLocationUncheckedUpdateOneWithoutUserNestedInput
+}
+
+export type UserCreateWithoutLocationInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  avatarUrl?: string | null
+  bio?: string | null
+  role?: $Enums.UserRole
+  isEmailVerified?: boolean
+  isBanned?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentCreateNestedManyWithoutAuthorInput
+  reactions?: Prisma.ReactionCreateNestedManyWithoutUserInput
+  friendRequestsSent?: Prisma.FriendRequestCreateNestedManyWithoutFromUserInput
+  friendRequestsReceived?: Prisma.FriendRequestCreateNestedManyWithoutToUserInput
+  friendsAsUser1?: Prisma.FriendCreateNestedManyWithoutUser1Input
+  friendsAsUser2?: Prisma.FriendCreateNestedManyWithoutUser2Input
+  blocksInitiated?: Prisma.BlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.BlockCreateNestedManyWithoutBlockedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeCreateNestedManyWithoutOwnerInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeCreateNestedManyWithoutUsedByUserInput
+}
+
+export type UserUncheckedCreateWithoutLocationInput = {
+  id?: string
+  email: string
+  passwordHash: string
+  name: string
+  avatarUrl?: string | null
+  bio?: string | null
+  role?: $Enums.UserRole
+  isEmailVerified?: boolean
+  isBanned?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAuthorInput
+  reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutUserInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutFromUserInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedCreateNestedManyWithoutToUserInput
+  friendsAsUser1?: Prisma.FriendUncheckedCreateNestedManyWithoutUser1Input
+  friendsAsUser2?: Prisma.FriendUncheckedCreateNestedManyWithoutUser2Input
+  blocksInitiated?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.BlockUncheckedCreateNestedManyWithoutBlockedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutOwnerInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedCreateNestedManyWithoutUsedByUserInput
+}
+
+export type UserCreateOrConnectWithoutLocationInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutLocationInput, Prisma.UserUncheckedCreateWithoutLocationInput>
+}
+
+export type UserUpsertWithoutLocationInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutLocationInput, Prisma.UserUncheckedUpdateWithoutLocationInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutLocationInput, Prisma.UserUncheckedCreateWithoutLocationInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutLocationInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutLocationInput, Prisma.UserUncheckedUpdateWithoutLocationInput>
+}
+
+export type UserUpdateWithoutLocationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutAuthorNestedInput
+  reactions?: Prisma.ReactionUpdateManyWithoutUserNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUpdateManyWithoutFromUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUpdateManyWithoutToUserNestedInput
+  friendsAsUser1?: Prisma.FriendUpdateManyWithoutUser1NestedInput
+  friendsAsUser2?: Prisma.FriendUpdateManyWithoutUser2NestedInput
+  blocksInitiated?: Prisma.BlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.BlockUpdateManyWithoutBlockedNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUpdateManyWithoutOwnerNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUpdateManyWithoutUsedByUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutLocationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isBanned?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutAuthorNestedInput
+  reactions?: Prisma.ReactionUncheckedUpdateManyWithoutUserNestedInput
+  friendRequestsSent?: Prisma.FriendRequestUncheckedUpdateManyWithoutFromUserNestedInput
+  friendRequestsReceived?: Prisma.FriendRequestUncheckedUpdateManyWithoutToUserNestedInput
+  friendsAsUser1?: Prisma.FriendUncheckedUpdateManyWithoutUser1NestedInput
+  friendsAsUser2?: Prisma.FriendUncheckedUpdateManyWithoutUser2NestedInput
+  blocksInitiated?: Prisma.BlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.BlockUncheckedUpdateManyWithoutBlockedNestedInput
+  inviteCodesOwned?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutOwnerNestedInput
+  inviteCodesUsed?: Prisma.FriendInviteCodeUncheckedUpdateManyWithoutUsedByUserNestedInput
 }
 
 
@@ -1202,6 +2802,14 @@ export type UserCountOutputType = {
   posts: number
   comments: number
   reactions: number
+  friendRequestsSent: number
+  friendRequestsReceived: number
+  friendsAsUser1: number
+  friendsAsUser2: number
+  blocksInitiated: number
+  blocksReceived: number
+  inviteCodesOwned: number
+  inviteCodesUsed: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1211,6 +2819,14 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   posts?: boolean | UserCountOutputTypeCountPostsArgs
   comments?: boolean | UserCountOutputTypeCountCommentsArgs
   reactions?: boolean | UserCountOutputTypeCountReactionsArgs
+  friendRequestsSent?: boolean | UserCountOutputTypeCountFriendRequestsSentArgs
+  friendRequestsReceived?: boolean | UserCountOutputTypeCountFriendRequestsReceivedArgs
+  friendsAsUser1?: boolean | UserCountOutputTypeCountFriendsAsUser1Args
+  friendsAsUser2?: boolean | UserCountOutputTypeCountFriendsAsUser2Args
+  blocksInitiated?: boolean | UserCountOutputTypeCountBlocksInitiatedArgs
+  blocksReceived?: boolean | UserCountOutputTypeCountBlocksReceivedArgs
+  inviteCodesOwned?: boolean | UserCountOutputTypeCountInviteCodesOwnedArgs
+  inviteCodesUsed?: boolean | UserCountOutputTypeCountInviteCodesUsedArgs
 }
 
 /**
@@ -1265,6 +2881,62 @@ export type UserCountOutputTypeCountReactionsArgs<ExtArgs extends runtime.Types.
   where?: Prisma.ReactionWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountFriendRequestsSentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FriendRequestWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountFriendRequestsReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FriendRequestWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountFriendsAsUser1Args<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FriendWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountFriendsAsUser2Args<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FriendWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountBlocksInitiatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BlockWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountBlocksReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BlockWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountInviteCodesOwnedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FriendInviteCodeWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountInviteCodesUsedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FriendInviteCodeWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1285,6 +2957,15 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   posts?: boolean | Prisma.User$postsArgs<ExtArgs>
   comments?: boolean | Prisma.User$commentsArgs<ExtArgs>
   reactions?: boolean | Prisma.User$reactionsArgs<ExtArgs>
+  friendRequestsSent?: boolean | Prisma.User$friendRequestsSentArgs<ExtArgs>
+  friendRequestsReceived?: boolean | Prisma.User$friendRequestsReceivedArgs<ExtArgs>
+  friendsAsUser1?: boolean | Prisma.User$friendsAsUser1Args<ExtArgs>
+  friendsAsUser2?: boolean | Prisma.User$friendsAsUser2Args<ExtArgs>
+  blocksInitiated?: boolean | Prisma.User$blocksInitiatedArgs<ExtArgs>
+  blocksReceived?: boolean | Prisma.User$blocksReceivedArgs<ExtArgs>
+  inviteCodesOwned?: boolean | Prisma.User$inviteCodesOwnedArgs<ExtArgs>
+  inviteCodesUsed?: boolean | Prisma.User$inviteCodesUsedArgs<ExtArgs>
+  location?: boolean | Prisma.User$locationArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1341,6 +3022,15 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   posts?: boolean | Prisma.User$postsArgs<ExtArgs>
   comments?: boolean | Prisma.User$commentsArgs<ExtArgs>
   reactions?: boolean | Prisma.User$reactionsArgs<ExtArgs>
+  friendRequestsSent?: boolean | Prisma.User$friendRequestsSentArgs<ExtArgs>
+  friendRequestsReceived?: boolean | Prisma.User$friendRequestsReceivedArgs<ExtArgs>
+  friendsAsUser1?: boolean | Prisma.User$friendsAsUser1Args<ExtArgs>
+  friendsAsUser2?: boolean | Prisma.User$friendsAsUser2Args<ExtArgs>
+  blocksInitiated?: boolean | Prisma.User$blocksInitiatedArgs<ExtArgs>
+  blocksReceived?: boolean | Prisma.User$blocksReceivedArgs<ExtArgs>
+  inviteCodesOwned?: boolean | Prisma.User$inviteCodesOwnedArgs<ExtArgs>
+  inviteCodesUsed?: boolean | Prisma.User$inviteCodesUsedArgs<ExtArgs>
+  location?: boolean | Prisma.User$locationArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1355,6 +3045,15 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     posts: Prisma.$PostPayload<ExtArgs>[]
     comments: Prisma.$CommentPayload<ExtArgs>[]
     reactions: Prisma.$ReactionPayload<ExtArgs>[]
+    friendRequestsSent: Prisma.$FriendRequestPayload<ExtArgs>[]
+    friendRequestsReceived: Prisma.$FriendRequestPayload<ExtArgs>[]
+    friendsAsUser1: Prisma.$FriendPayload<ExtArgs>[]
+    friendsAsUser2: Prisma.$FriendPayload<ExtArgs>[]
+    blocksInitiated: Prisma.$BlockPayload<ExtArgs>[]
+    blocksReceived: Prisma.$BlockPayload<ExtArgs>[]
+    inviteCodesOwned: Prisma.$FriendInviteCodePayload<ExtArgs>[]
+    inviteCodesUsed: Prisma.$FriendInviteCodePayload<ExtArgs>[]
+    location: Prisma.$UserLocationPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1769,6 +3468,15 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   posts<T extends Prisma.User$postsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$postsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   comments<T extends Prisma.User$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reactions<T extends Prisma.User$reactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  friendRequestsSent<T extends Prisma.User$friendRequestsSentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$friendRequestsSentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FriendRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  friendRequestsReceived<T extends Prisma.User$friendRequestsReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$friendRequestsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FriendRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  friendsAsUser1<T extends Prisma.User$friendsAsUser1Args<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$friendsAsUser1Args<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  friendsAsUser2<T extends Prisma.User$friendsAsUser2Args<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$friendsAsUser2Args<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FriendPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  blocksInitiated<T extends Prisma.User$blocksInitiatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$blocksInitiatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BlockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  blocksReceived<T extends Prisma.User$blocksReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$blocksReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BlockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  inviteCodesOwned<T extends Prisma.User$inviteCodesOwnedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$inviteCodesOwnedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FriendInviteCodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  inviteCodesUsed<T extends Prisma.User$inviteCodesUsedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$inviteCodesUsedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FriendInviteCodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  location<T extends Prisma.User$locationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$locationArgs<ExtArgs>>): Prisma.Prisma__UserLocationClient<runtime.Types.Result.GetResult<Prisma.$UserLocationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2339,6 +4047,217 @@ export type User$reactionsArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.ReactionScalarFieldEnum | Prisma.ReactionScalarFieldEnum[]
+}
+
+/**
+ * User.friendRequestsSent
+ */
+export type User$friendRequestsSentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FriendRequest
+   */
+  select?: Prisma.FriendRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FriendRequest
+   */
+  omit?: Prisma.FriendRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FriendRequestInclude<ExtArgs> | null
+  where?: Prisma.FriendRequestWhereInput
+  orderBy?: Prisma.FriendRequestOrderByWithRelationInput | Prisma.FriendRequestOrderByWithRelationInput[]
+  cursor?: Prisma.FriendRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FriendRequestScalarFieldEnum | Prisma.FriendRequestScalarFieldEnum[]
+}
+
+/**
+ * User.friendRequestsReceived
+ */
+export type User$friendRequestsReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FriendRequest
+   */
+  select?: Prisma.FriendRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FriendRequest
+   */
+  omit?: Prisma.FriendRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FriendRequestInclude<ExtArgs> | null
+  where?: Prisma.FriendRequestWhereInput
+  orderBy?: Prisma.FriendRequestOrderByWithRelationInput | Prisma.FriendRequestOrderByWithRelationInput[]
+  cursor?: Prisma.FriendRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FriendRequestScalarFieldEnum | Prisma.FriendRequestScalarFieldEnum[]
+}
+
+/**
+ * User.friendsAsUser1
+ */
+export type User$friendsAsUser1Args<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Friend
+   */
+  select?: Prisma.FriendSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Friend
+   */
+  omit?: Prisma.FriendOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FriendInclude<ExtArgs> | null
+  where?: Prisma.FriendWhereInput
+  orderBy?: Prisma.FriendOrderByWithRelationInput | Prisma.FriendOrderByWithRelationInput[]
+  cursor?: Prisma.FriendWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FriendScalarFieldEnum | Prisma.FriendScalarFieldEnum[]
+}
+
+/**
+ * User.friendsAsUser2
+ */
+export type User$friendsAsUser2Args<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Friend
+   */
+  select?: Prisma.FriendSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Friend
+   */
+  omit?: Prisma.FriendOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FriendInclude<ExtArgs> | null
+  where?: Prisma.FriendWhereInput
+  orderBy?: Prisma.FriendOrderByWithRelationInput | Prisma.FriendOrderByWithRelationInput[]
+  cursor?: Prisma.FriendWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FriendScalarFieldEnum | Prisma.FriendScalarFieldEnum[]
+}
+
+/**
+ * User.blocksInitiated
+ */
+export type User$blocksInitiatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Block
+   */
+  select?: Prisma.BlockSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Block
+   */
+  omit?: Prisma.BlockOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BlockInclude<ExtArgs> | null
+  where?: Prisma.BlockWhereInput
+  orderBy?: Prisma.BlockOrderByWithRelationInput | Prisma.BlockOrderByWithRelationInput[]
+  cursor?: Prisma.BlockWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BlockScalarFieldEnum | Prisma.BlockScalarFieldEnum[]
+}
+
+/**
+ * User.blocksReceived
+ */
+export type User$blocksReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Block
+   */
+  select?: Prisma.BlockSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Block
+   */
+  omit?: Prisma.BlockOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BlockInclude<ExtArgs> | null
+  where?: Prisma.BlockWhereInput
+  orderBy?: Prisma.BlockOrderByWithRelationInput | Prisma.BlockOrderByWithRelationInput[]
+  cursor?: Prisma.BlockWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BlockScalarFieldEnum | Prisma.BlockScalarFieldEnum[]
+}
+
+/**
+ * User.inviteCodesOwned
+ */
+export type User$inviteCodesOwnedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FriendInviteCode
+   */
+  select?: Prisma.FriendInviteCodeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FriendInviteCode
+   */
+  omit?: Prisma.FriendInviteCodeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FriendInviteCodeInclude<ExtArgs> | null
+  where?: Prisma.FriendInviteCodeWhereInput
+  orderBy?: Prisma.FriendInviteCodeOrderByWithRelationInput | Prisma.FriendInviteCodeOrderByWithRelationInput[]
+  cursor?: Prisma.FriendInviteCodeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FriendInviteCodeScalarFieldEnum | Prisma.FriendInviteCodeScalarFieldEnum[]
+}
+
+/**
+ * User.inviteCodesUsed
+ */
+export type User$inviteCodesUsedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FriendInviteCode
+   */
+  select?: Prisma.FriendInviteCodeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FriendInviteCode
+   */
+  omit?: Prisma.FriendInviteCodeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FriendInviteCodeInclude<ExtArgs> | null
+  where?: Prisma.FriendInviteCodeWhereInput
+  orderBy?: Prisma.FriendInviteCodeOrderByWithRelationInput | Prisma.FriendInviteCodeOrderByWithRelationInput[]
+  cursor?: Prisma.FriendInviteCodeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FriendInviteCodeScalarFieldEnum | Prisma.FriendInviteCodeScalarFieldEnum[]
+}
+
+/**
+ * User.location
+ */
+export type User$locationArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserLocation
+   */
+  select?: Prisma.UserLocationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserLocation
+   */
+  omit?: Prisma.UserLocationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserLocationInclude<ExtArgs> | null
+  where?: Prisma.UserLocationWhereInput
 }
 
 /**
