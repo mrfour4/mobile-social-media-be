@@ -1,5 +1,3 @@
-// prisma/schema.prisma
-
 datasource db {
   provider = "postgresql"
 }
@@ -15,8 +13,39 @@ enum UserRole {
   ADMIN
 }
 
+enum Privacy {
+  PUBLIC
+  FRIENDS
+  ONLY_ME
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+}
+
+enum AiStatus {
+  OK
+  FLAGGED
+  REJECTED
+}
+
+enum ReactionTargetType {
+  POST
+  COMMENT
+}
+
+enum ReactionType {
+  LIKE
+  LOVE
+  HAHA
+  WOW
+  SAD
+  ANGRY
+}
+
 model User {
-  id           String  @id @default(cuid())
+  id           String  @id @default(uuid())
   email        String  @unique
   passwordHash String
   name         String
@@ -35,10 +64,14 @@ model User {
   refreshTokens           RefreshToken[]
   emailVerificationTokens EmailVerificationToken[]
   passwordResetTokens     PasswordResetToken[]
+
+  posts     Post[]
+  comments  Comment[]
+  reactions Reaction[]
 }
 
 model RefreshToken {
-  id     String @id @default(cuid())
+  id     String @id @default(uuid())
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
 
@@ -52,7 +85,7 @@ model RefreshToken {
 }
 
 model EmailVerificationToken {
-  id     String @id @default(cuid())
+  id     String @id @default(uuid())
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
 
@@ -67,7 +100,7 @@ model EmailVerificationToken {
 }
 
 model PasswordResetToken {
-  id     String @id @default(cuid())
+  id     String @id @default(uuid())
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
 
@@ -79,4 +112,91 @@ model PasswordResetToken {
 
   @@index([userId])
   @@index([token])
+}
+
+model Post {
+  id       String @id @default(uuid())
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId String
+
+  text    String?
+  privacy Privacy @default(PUBLIC)
+
+  aiStatus AiStatus @default(OK)
+  aiReason String?
+
+  sharedFrom   Post?   @relation("ShareRelation", fields: [sharedFromId], references: [id])
+  sharedFromId String?
+
+  shares Post[] @relation("ShareRelation")
+
+  media     PostMedia[]
+  comments  Comment[]
+  reactions Reaction[]
+
+  deletedAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([authorId])
+  @@index([sharedFromId])
+}
+
+model PostMedia {
+  id     String @id @default(uuid())
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String
+
+  type  MediaType
+  url   String
+  size  Int?
+  order Int       @default(0)
+
+  @@index([postId])
+}
+
+model Comment {
+  id     String @id @default(uuid())
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String
+
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId String
+
+  parentComment   Comment?  @relation("CommentReply", fields: [parentCommentId], references: [id])
+  parentCommentId String?
+  replies         Comment[] @relation("CommentReply")
+
+  content  String
+  aiStatus AiStatus @default(OK)
+  aiReason String?
+
+  reactions Reaction[]
+
+  deletedAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([postId])
+  @@index([authorId])
+  @@index([parentCommentId])
+}
+
+model Reaction {
+  id     String @id @default(uuid())
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  targetType ReactionTargetType
+  targetId   String
+  type       ReactionType
+
+  createdAt DateTime @default(now())
+  post      Post?    @relation(fields: [postId], references: [id])
+  postId    String?
+  comment   Comment? @relation(fields: [commentId], references: [id])
+  commentId String?
+
+  @@unique([userId, targetType, targetId])
+  @@index([targetId])
 }

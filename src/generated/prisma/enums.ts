@@ -15,3 +15,49 @@ export const UserRole = {
 } as const
 
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
+
+
+export const Privacy = {
+  PUBLIC: 'PUBLIC',
+  FRIENDS: 'FRIENDS',
+  ONLY_ME: 'ONLY_ME'
+} as const
+
+export type Privacy = (typeof Privacy)[keyof typeof Privacy]
+
+
+export const MediaType = {
+  IMAGE: 'IMAGE',
+  VIDEO: 'VIDEO'
+} as const
+
+export type MediaType = (typeof MediaType)[keyof typeof MediaType]
+
+
+export const AiStatus = {
+  OK: 'OK',
+  FLAGGED: 'FLAGGED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type AiStatus = (typeof AiStatus)[keyof typeof AiStatus]
+
+
+export const ReactionTargetType = {
+  POST: 'POST',
+  COMMENT: 'COMMENT'
+} as const
+
+export type ReactionTargetType = (typeof ReactionTargetType)[keyof typeof ReactionTargetType]
+
+
+export const ReactionType = {
+  LIKE: 'LIKE',
+  LOVE: 'LOVE',
+  HAHA: 'HAHA',
+  WOW: 'WOW',
+  SAD: 'SAD',
+  ANGRY: 'ANGRY'
+} as const
+
+export type ReactionType = (typeof ReactionType)[keyof typeof ReactionType]

@@ -18,9 +18,8 @@ export class UsersService {
   async getMe(userId: string) {
     const user = await this.findById(userId);
     if (!user) return null;
-    // ẩn passwordHash
-    const { passwordHash, ...rest } = user;
-    return rest;
+
+    return user;
   }
 
   async updateProfile(userId: string, dto: UpdateProfileDto) {
@@ -28,12 +27,15 @@ export class UsersService {
       where: { id: userId },
       data: dto,
     });
-    const { passwordHash, ...rest } = user;
-    return rest;
+
+    return user;
   }
 
   async changePassword(userId: string, dto: ChangePasswordDto) {
-    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      omit: { passwordHash: false },
+    });
     if (!user) throw new BadRequestException('User not found');
 
     const ok = await bcrypt.compare(dto.currentPassword, user.passwordHash);

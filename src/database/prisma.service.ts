@@ -17,7 +17,14 @@ export class PrismaService
 
     const adapter = new PrismaPg({ connectionString });
 
-    super({ adapter });
+    super({
+      adapter,
+      omit: {
+        user: {
+          passwordHash: true,
+        },
+      },
+    });
   }
 
   async onModuleInit() {

@@ -114,13 +114,15 @@ export class AuthService {
       `<p>Click to verify: <a href="${verifyLink}">${verifyLink}</a></p>`,
     );
 
-    const { passwordHash: _, ...safe } = user;
-    return safe;
+    return user;
   }
 
   async login(dto: LoginDto) {
     const user = await this.prisma.user.findUnique({
       where: { email: dto.email },
+      omit: {
+        passwordHash: false,
+      },
     });
     if (!user) throw new UnauthorizedException('Invalid credentials');
 
@@ -253,7 +255,10 @@ export class AuthService {
   }
 
   async resetPassword(email: string, code: string, newPassword: string) {
-    const user = await this.prisma.user.findUnique({ where: { email } });
+    const user = await this.prisma.user.findUnique({
+      where: { email },
+      omit: { passwordHash: false },
+    });
     if (!user) {
       throw new BadRequestException('Invalid email or code');
     }
