@@ -1,4 +1,4 @@
-// src/chat/chat.gateway.ts
+import { UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import {
@@ -11,15 +11,21 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
+import { AllWsExceptionsFilter } from '../common/filters/ws-exception.filter';
+import { JoinConversationDto } from './dtos/join-conversation.dto';
+import { MessageReadDto } from './dtos/message-read.dto';
 import { SendMessageDto } from './dtos/send-message.dto';
 import { MessagesService } from './messages.service';
 
-@WebSocketGateway({
-  namespace: 'chat',
-  cors: {
-    origin: '*',
-  },
-})
+@WebSocketGateway({ namespace: 'chat', cors: { origin: '*' } })
+@UsePipes(
+  new ValidationPipe({
+    whitelist: true,
+    forbidNonWhitelisted: true,
+    transform: true,
+  }),
+)
+@UseFilters(new AllWsExceptionsFilter())
 export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
   server: Server;
@@ -59,7 +65,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @SubscribeMessage('join_conversation')
   async handleJoinConversation(
     @ConnectedSocket() client: Socket,
-    @MessageBody() data: { conversationId: string },
+    @MessageBody() data: JoinConversationDto,
   ) {
     const { conversationId } = data;
     const userId = client.data.userId as string;
@@ -77,10 +83,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @SubscribeMessage('send_message')
   async handleSendMessage(
     @ConnectedSocket() client: Socket,
-    @MessageBody()
-    payload: Omit<SendMessageDto, 'conversationId'> & {
-      conversationId: string;
-    },
+    @MessageBody() payload: SendMessageDto,
   ) {
     const userId = client.data.userId as string;
     if (!userId) {
@@ -90,15 +93,13 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
     console.log('send_message', payload);
 
-    const dto: SendMessageDto = {
+    const message = await this.messagesService.sendMessage(userId, {
       conversationId: payload.conversationId,
       type: payload.type,
       content: payload.content,
       mediaUrl: payload.mediaUrl,
       replyToMessageId: payload.replyToMessageId,
-    };
-
-    const message = await this.messagesService.sendMessage(userId, dto);
+    });
 
     this.server.to(`conv:${payload.conversationId}`).emit('message', message);
   }
@@ -106,7 +107,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @SubscribeMessage('message_read')
   async handleMessageRead(
     @ConnectedSocket() client: Socket,
-    @MessageBody() data: { messageId: string },
+    @MessageBody() data: MessageReadDto,
   ) {
     const userId = client.data.userId as string;
     if (!userId) {
@@ -114,7 +115,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       return;
     }
 
-    console.log('send_message', data);
+    console.log('message_read', data);
 
     await this.messagesService.markMessageRead(userId, data.messageId);
 

@@ -1,9 +1,9 @@
 // src/chat/dtos/send-message.dto.ts
-import { IsEnum, IsOptional, IsString } from 'class-validator';
+import { IsEnum, IsOptional, IsString, IsUUID } from 'class-validator';
 import { MessageType } from '../../generated/prisma/enums';
 
 export class SendMessageDto {
-  @IsString()
+  @IsUUID()
   conversationId: string;
 
   @IsEnum(MessageType)
@@ -18,6 +18,6 @@ export class SendMessageDto {
   mediaUrl?: string;
 
   @IsOptional()
-  @IsString()
+  @IsUUID()
   replyToMessageId?: string;
 }
