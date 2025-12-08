@@ -71,3 +71,30 @@ export const FriendRequestStatus = {
 } as const
 
 export type FriendRequestStatus = (typeof FriendRequestStatus)[keyof typeof FriendRequestStatus]
+
+
+export const ConversationType = {
+  DIRECT: 'DIRECT',
+  GROUP: 'GROUP',
+  BOT: 'BOT'
+} as const
+
+export type ConversationType = (typeof ConversationType)[keyof typeof ConversationType]
+
+
+export const MessageType = {
+  TEXT: 'TEXT',
+  IMAGE: 'IMAGE',
+  FILE: 'FILE',
+  CALL: 'CALL'
+} as const
+
+export type MessageType = (typeof MessageType)[keyof typeof MessageType]
+
+
+export const ConversationMemberRole = {
+  MEMBER: 'MEMBER',
+  OWNER: 'OWNER'
+} as const
+
+export type ConversationMemberRole = (typeof ConversationMemberRole)[keyof typeof ConversationMemberRole]

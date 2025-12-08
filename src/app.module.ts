@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AiModule } from './ai/ai.module';
 import { AuthModule } from './auth/auth.module';
+import { ChatModule } from './chat/chat.module';
 import { CommentsModule } from './comments/comments.module';
 import { PrismaModule } from './database/prisma.module';
 import { FriendsModule } from './friends/friends.module';
@@ -25,6 +26,7 @@ import { UsersModule } from './users/users.module';
     AiModule,
     LocationModule,
     FriendsModule,
+    ChatModule,
   ],
 })
 export class AppModule {}

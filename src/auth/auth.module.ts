@@ -10,5 +10,6 @@ import { JwtAccessStrategy } from './jwt-access.strategy';
   imports: [JwtModule.register({})],
   providers: [AuthService, JwtAccessStrategy, EmailService],
   controllers: [AuthController],
+  exports: [JwtModule],
 })
 export class AuthModule {}

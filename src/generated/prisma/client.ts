@@ -102,3 +102,28 @@ export type FriendInviteCode = Prisma.FriendInviteCodeModel
  * 
  */
 export type UserLocation = Prisma.UserLocationModel
+/**
+ * Model Conversation
+ * 
+ */
+export type Conversation = Prisma.ConversationModel
+/**
+ * Model ConversationMember
+ * 
+ */
+export type ConversationMember = Prisma.ConversationMemberModel
+/**
+ * Model Message
+ * 
+ */
+export type Message = Prisma.MessageModel
+/**
+ * Model MessageReaction
+ * 
+ */
+export type MessageReaction = Prisma.MessageReactionModel
+/**
+ * Model MessageRead
+ * 
+ */
+export type MessageRead = Prisma.MessageReadModel

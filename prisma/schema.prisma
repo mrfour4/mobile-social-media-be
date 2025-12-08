@@ -51,6 +51,24 @@ enum FriendRequestStatus {
   CANCELED
 }
 
+enum ConversationType {
+  DIRECT
+  GROUP
+  BOT
+}
+
+enum MessageType {
+  TEXT
+  IMAGE
+  FILE
+  CALL
+}
+
+enum ConversationMemberRole {
+  MEMBER
+  OWNER
+}
+
 model User {
   id           String  @id @default(uuid())
   email        String  @unique
@@ -89,6 +107,16 @@ model User {
   inviteCodesUsed  FriendInviteCode[] @relation("InviteUsedBy")
 
   location UserLocation?
+
+  conversationsOwned Conversation[]
+
+  conversationMemberships ConversationMember[]
+
+  messagesSent Message[] @relation("Message_sender")
+
+  messageReactions MessageReaction[]
+
+  messageReads MessageRead[]
 }
 
 model RefreshToken {
@@ -296,4 +324,98 @@ model UserLocation {
   sharingEnabled Boolean @default(false)
 
   updatedAt DateTime @updatedAt
+}
+
+model Conversation {
+  id      String           @id @default(uuid())
+  type    ConversationType
+  title   String?
+  ownerId String?
+  owner   User?            @relation(fields: [ownerId], references: [id])
+
+  members  ConversationMember[]
+  messages Message[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([type])
+  @@index([ownerId])
+}
+
+model ConversationMember {
+  id             String       @id @default(uuid())
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  conversationId String
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  role ConversationMemberRole @default(MEMBER)
+
+  joinedAt DateTime  @default(now())
+  leftAt   DateTime?
+
+  @@unique([conversationId, userId])
+  @@index([userId])
+}
+
+model Message {
+  id             String       @id @default(uuid())
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  conversationId String
+
+  sender   User   @relation("Message_sender", fields: [senderId], references: [id], onDelete: Cascade)
+  senderId String
+
+  type     MessageType
+  content  String?
+  mediaUrl String?
+
+  replyTo          Message?  @relation("MessageReply", fields: [replyToMessageId], references: [id])
+  replyToMessageId String?
+  replies          Message[] @relation("MessageReply")
+
+  deletedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  reactions MessageReaction[]
+  reads     MessageRead[]
+
+  @@index([conversationId])
+  @@index([senderId])
+  @@index([replyToMessageId])
+  @@index([conversationId, createdAt, id])
+}
+
+model MessageReaction {
+  id        String  @id @default(uuid())
+  message   Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  messageId String
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  type ReactionType
+
+  createdAt DateTime @default(now())
+
+  @@unique([messageId, userId])
+  @@index([userId])
+}
+
+model MessageRead {
+  id        String  @id @default(uuid())
+  message   Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  messageId String
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  readAt DateTime?
+
+  @@unique([messageId, userId])
+  @@index([userId])
 }

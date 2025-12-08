@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "MessageRead" ALTER COLUMN "readAt" DROP NOT NULL,
+ALTER COLUMN "readAt" DROP DEFAULT;
