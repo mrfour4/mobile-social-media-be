@@ -12,10 +12,12 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { AllWsExceptionsFilter } from '../common/filters/ws-exception.filter';
+import { GetPresenceDto } from './dtos/get-presence.dto';
 import { JoinConversationDto } from './dtos/join-conversation.dto';
 import { MessageReadDto } from './dtos/message-read.dto';
 import { SendMessageDto } from './dtos/send-message.dto';
 import { MessagesService } from './messages.service';
+import { PresenceService } from './presence.service';
 
 @WebSocketGateway({ namespace: 'chat', cors: { origin: '*' } })
 @UsePipes(
@@ -34,6 +36,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     private readonly jwt: JwtService,
     private readonly config: ConfigService,
     private readonly messagesService: MessagesService,
+    private readonly presenceService: PresenceService,
   ) {}
 
   async handleConnection(client: Socket) {
@@ -49,17 +52,27 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
         secret: this.config.get<string>('JWT_ACCESS_SECRET'),
       });
 
-      console.log('client connected');
+      const userId = payload.sub as string;
 
-      client.data.userId = payload.sub;
-      client.join(`user:${payload.sub}`);
+      console.log('client connected', userId);
+
+      client.data.userId = userId;
+      client.join(`user:${userId}`);
+
+      await this.presenceService.userConnected(userId, this.server);
     } catch {
       client.disconnect();
     }
   }
 
-  handleDisconnect(_client: Socket) {
-    console.log('Client disconnected');
+  async handleDisconnect(client: Socket) {
+    const userId = client.data.userId as string | undefined;
+
+    console.log('Client disconnected', userId);
+
+    if (userId) {
+      await this.presenceService.userDisconnected(userId, this.server);
+    }
   }
 
   @SubscribeMessage('join_conversation')
@@ -122,6 +135,28 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.server.emit('message_read', {
       messageId: data.messageId,
       userId,
+    });
+  }
+
+  @SubscribeMessage('get_presence')
+  async handleGetPresence(
+    @ConnectedSocket() client: Socket,
+    @MessageBody() data: GetPresenceDto,
+  ) {
+    const viewerId = client.data.userId as string;
+    if (!viewerId) {
+      client.disconnect();
+      return;
+    }
+
+    const presence = await this.presenceService.getPresenceForViewer(
+      data.userId,
+      viewerId,
+    );
+
+    client.emit('presence_response', {
+      userId: data.userId,
+      presence,
     });
   }
 }

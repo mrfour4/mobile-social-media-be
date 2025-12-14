@@ -97,6 +97,8 @@ export const UserScalarFieldEnum = {
   role: 'role',
   isEmailVerified: 'isEmailVerified',
   isBanned: 'isBanned',
+  isOnline: 'isOnline',
+  lastSeenAt: 'lastSeenAt',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
