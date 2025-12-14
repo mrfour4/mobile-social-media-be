@@ -5,13 +5,17 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { randomBytes } from 'crypto';
+import { NotificationsService } from 'src/notifications/notifications.service';
 import { PrismaService } from '../database/prisma.service';
 import { FriendRequestStatus } from '../generated/prisma/enums';
 import { CreateFriendRequestDto } from './dtos/create-friend-request.dto';
 
 @Injectable()
 export class FriendsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly notificationsService: NotificationsService,
+  ) {}
 
   private sortUserPair(
     userId: string,
@@ -74,6 +78,12 @@ export class FriendsService {
         toUserId: dto.toUserId,
       },
     });
+
+    await this.notificationsService.notifyFriendRequestReceived(
+      dto.toUserId,
+      currentUserId,
+      request.id,
+    );
 
     return request;
   }
@@ -143,6 +153,12 @@ export class FriendsService {
         create: { userId1, userId2 },
       }),
     ]);
+
+    await this.notificationsService.notifyFriendRequestAccepted(
+      request.fromUserId,
+      request.toUserId,
+      request.id,
+    );
 
     return { success: true };
   }

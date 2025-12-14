@@ -127,3 +127,8 @@ export type MessageReaction = Prisma.MessageReactionModel
  * 
  */
 export type MessageRead = Prisma.MessageReadModel
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel

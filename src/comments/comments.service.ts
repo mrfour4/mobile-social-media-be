@@ -1,10 +1,10 @@
-// src/comments/comments.service.ts
 import {
   BadRequestException,
   ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { NotificationsService } from 'src/notifications/notifications.service';
 import { AiService } from '../ai/ai.service';
 import { PrismaService } from '../database/prisma.service';
 import { CreateCommentDto } from './dtos/create-comment.dto';
@@ -15,6 +15,7 @@ export class CommentsService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly aiService: AiService,
+    private readonly notificationsService: NotificationsService,
   ) {}
 
   async createComment(userId: string, postId: string, dto: CreateCommentDto) {
@@ -49,6 +50,30 @@ export class CommentsService {
         replies: true,
       },
     });
+
+    if (post) {
+      if (!dto.parentCommentId) {
+        await this.notificationsService.notifyPostCommented(
+          post.authorId,
+          userId,
+          postId,
+          comment.id,
+        );
+      } else {
+        const parent = await this.prisma.comment.findUnique({
+          where: { id: dto.parentCommentId },
+          select: { authorId: true },
+        });
+        if (parent) {
+          await this.notificationsService.notifyCommentReplied(
+            parent.authorId,
+            userId,
+            postId,
+            comment.id,
+          );
+        }
+      }
+    }
 
     return comment;
   }

@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { ConversationsService } from 'src/conversations/conversations.service';
 import { Prisma } from 'src/generated/prisma/client';
+import { NotificationsService } from 'src/notifications/notifications.service';
 import { PrismaService } from '../database/prisma.service';
 import { MessageType, ReactionType } from '../generated/prisma/enums';
 import { MessagesCursorQueryDto } from './dtos/messages-cursor-query.dto';
@@ -15,6 +16,7 @@ export class MessagesService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly conversationsService: ConversationsService,
+    private readonly notificationsService: NotificationsService,
   ) {}
 
   async getMessages(
@@ -123,6 +125,20 @@ export class MessagesService {
       where: { id: dto.conversationId },
       data: { updatedAt: new Date() },
     });
+
+    const members = await this.prisma.conversationMember.findMany({
+      where: { conversationId: dto.conversationId },
+      select: { userId: true },
+    });
+
+    for (const m of members) {
+      await this.notificationsService.notifyNewMessage(
+        m.userId,
+        dto.conversationId,
+        message.id,
+        userId,
+      );
+    }
 
     return message;
   }

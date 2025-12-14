@@ -10,6 +10,7 @@ import { PrismaModule } from './database/prisma.module';
 import { FriendsModule } from './friends/friends.module';
 import { LocationModule } from './location/location.module';
 import { MessagesModule } from './messages/messages.module';
+import { NotificationsModule } from './notifications/notifications.module';
 import { PostsModule } from './posts/posts.module';
 import { PresenceModule } from './presence/presence.module';
 import { ReactionsModule } from './reactions/reactions.module';
@@ -33,6 +34,7 @@ import { UsersModule } from './users/users.module';
     ConversationsModule,
     MessagesModule,
     PresenceModule,
+    NotificationsModule,
   ],
 })
 export class AppModule {}

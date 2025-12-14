@@ -92,6 +92,20 @@ export const MessageType = {
 export type MessageType = (typeof MessageType)[keyof typeof MessageType]
 
 
+export const NotificationType = {
+  POST_LIKED: 'POST_LIKED',
+  POST_COMMENTED: 'POST_COMMENTED',
+  COMMENT_REPLIED: 'COMMENT_REPLIED',
+  FRIEND_REQUEST_RECEIVED: 'FRIEND_REQUEST_RECEIVED',
+  FRIEND_REQUEST_ACCEPTED: 'FRIEND_REQUEST_ACCEPTED',
+  NEW_MESSAGE: 'NEW_MESSAGE',
+  ADMIN_ANNOUNCEMENT: 'ADMIN_ANNOUNCEMENT',
+  COMMENT_REACTED: 'COMMENT_REACTED'
+} as const
+
+export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
+
+
 export const ConversationMemberRole = {
   MEMBER: 'MEMBER',
   OWNER: 'OWNER'

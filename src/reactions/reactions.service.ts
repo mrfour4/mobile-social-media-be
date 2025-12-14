@@ -1,17 +1,20 @@
-// src/reactions/reactions.service.ts
 import {
   BadRequestException,
   ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { NotificationsService } from 'src/notifications/notifications.service';
 import { PrismaService } from '../database/prisma.service';
 import { ReactionTargetType } from '../generated/prisma/enums';
 import { CreateReactionDto } from './dtos/create-reaction.dto';
 
 @Injectable()
 export class ReactionsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly notificationsService: NotificationsService,
+  ) {}
 
   async validateTarget(targetType: ReactionTargetType, targetId: string) {
     if (targetType === ReactionTargetType.POST) {
@@ -46,22 +49,63 @@ export class ReactionsService {
       },
     });
 
+    let reaction;
+
     if (existing) {
-      const updated = await this.prisma.reaction.update({
+      reaction = await this.prisma.reaction.update({
         where: { id: existing.id },
         data: { type: dto.type },
       });
-      return updated;
-    }
-
-    return this.prisma.reaction.create({
-      data: {
+    } else {
+      let data: any = {
         userId,
         targetType: dto.targetType,
         targetId: dto.targetId,
         type: dto.type,
-      },
-    });
+      };
+
+      if (dto.targetType === ReactionTargetType.POST) {
+        data.postId = dto.targetId;
+      } else if (dto.targetType === ReactionTargetType.COMMENT) {
+        data.commentId = dto.targetId;
+      }
+
+      reaction = await this.prisma.reaction.create({ data });
+    }
+
+    if (dto.targetType === ReactionTargetType.POST) {
+      const post = await this.prisma.post.findUnique({
+        where: { id: dto.targetId },
+        select: { authorId: true },
+      });
+
+      if (post && post.authorId !== userId) {
+        await this.notificationsService.notifyPostLiked(
+          post.authorId,
+          userId,
+          dto.targetId,
+        );
+      }
+    }
+
+    if (dto.targetType === ReactionTargetType.COMMENT) {
+      const comment = await this.prisma.comment.findUnique({
+        where: { id: dto.targetId },
+        select: { authorId: true, postId: true },
+      });
+
+      if (comment && comment.authorId !== userId) {
+        await this.notificationsService.notifyCommentReacted(
+          comment.authorId,
+          userId,
+          comment.postId,
+          dto.targetId,
+          dto.type,
+        );
+      }
+    }
+
+    return reaction;
   }
 
   async removeReaction(

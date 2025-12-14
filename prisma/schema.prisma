@@ -64,6 +64,17 @@ enum MessageType {
   CALL
 }
 
+enum NotificationType {
+  POST_LIKED
+  POST_COMMENTED
+  COMMENT_REPLIED
+  FRIEND_REQUEST_RECEIVED
+  FRIEND_REQUEST_ACCEPTED
+  NEW_MESSAGE
+  ADMIN_ANNOUNCEMENT
+  COMMENT_REACTED
+}
+
 enum ConversationMemberRole {
   MEMBER
   OWNER
@@ -120,6 +131,8 @@ model User {
   messageReactions MessageReaction[]
 
   messageReads MessageRead[]
+
+  notifications Notification[]
 }
 
 model RefreshToken {
@@ -421,4 +434,22 @@ model MessageRead {
 
   @@unique([messageId, userId])
   @@index([userId])
+}
+
+model Notification {
+  id String @id @default(uuid())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  type    NotificationType
+  payload Json
+
+  isRead Boolean @default(false)
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([type])
+  @@index([isRead])
 }
