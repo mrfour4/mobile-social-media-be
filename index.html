@@ -1,0 +1,817 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Test Chat WebSocket + HTTP</title>
+    <!-- Socket.IO client từ NestJS server -->
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 16px;
+      }
+      fieldset {
+        margin-bottom: 16px;
+      }
+      legend {
+        font-weight: bold;
+      }
+      label {
+        display: block;
+        margin-top: 4px;
+      }
+      input,
+      select {
+        width: 100%;
+        padding: 4px;
+        box-sizing: border-box;
+      }
+      button {
+        margin-top: 8px;
+      }
+      #log {
+        margin-top: 16px;
+        padding: 8px;
+        height: 250px;
+        border: 1px solid #ccc;
+        overflow-y: auto;
+        background-color: #f7f7f7;
+        font-size: 13px;
+        white-space: pre-wrap;
+      }
+      .token-box {
+        font-size: 11px;
+        word-break: break-all;
+        background: #eee;
+        padding: 4px;
+        margin-top: 4px;
+      }
+      .error-line {
+        color: #b00020;
+      }
+      #conversations {
+        border: 1px solid #ccc;
+        padding: 8px;
+        max-height: 200px;
+        overflow-y: auto;
+        font-size: 13px;
+        background: #fafafa;
+      }
+      #messages {
+        border: 1px solid #ccc;
+        padding: 8px;
+        max-height: 250px;
+        overflow-y: auto;
+        font-size: 13px;
+        background: #fafafa;
+      }
+      .conv-item {
+        border-bottom: 1px solid #ddd;
+        padding: 4px 0;
+      }
+      .msg-item {
+        border-bottom: 1px dashed #ddd;
+        padding: 2px 0;
+      }
+      .msg-meta {
+        font-size: 11px;
+        color: #555;
+      }
+      .msg-content {
+        margin-left: 8px;
+      }
+      .tag-ws {
+        font-size: 10px;
+        background: #e0f7fa;
+        padding: 1px 4px;
+        margin-right: 4px;
+      }
+      .tag-http {
+        font-size: 10px;
+        background: #e8f5e9;
+        padding: 1px 4px;
+        margin-right: 4px;
+      }
+      .jwt-info {
+        font-size: 12px;
+        background: #f0f0f0;
+        padding: 4px;
+        margin-top: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Test Chat (HTTP + WebSocket)</h1>
+
+    <!-- 1. Đăng nhập HTTP để lấy JWT -->
+    <fieldset>
+      <legend>1. Đăng nhập (HTTP /api/auth/login)</legend>
+      <label>
+        Server URL:
+        <input
+          id="serverUrl"
+          type="text"
+          value="http://localhost:3000"
+          placeholder="http://localhost:3000"
+        />
+      </label>
+      <label>
+        Email:
+        <input
+          id="email"
+          type="text"
+          value="lqtu12369@gmail.com"
+          placeholder="Email"
+        />
+      </label>
+      <label>
+        Password:
+        <input id="password" type="password" value="123456" />
+      </label>
+      <button id="loginBtn">Login & lấy token</button>
+      <div>
+        Token hiện tại:
+        <div id="currentToken" class="token-box"></div>
+      </div>
+      <div>
+        Thông tin từ JWT (decode client-side, chỉ để debug):
+        <div id="jwtInfo" class="jwt-info"></div>
+      </div>
+    </fieldset>
+
+    <!-- 2. Kết nối WebSocket -->
+    <fieldset>
+      <legend>2. Kết nối WebSocket (namespace /chat)</legend>
+      <label>
+        JWT access token (query ?token=...):
+        <input id="tokenInput" type="text" placeholder="JWT token..." />
+      </label>
+      <button id="connectBtn">Connect</button>
+      <button id="disconnectBtn" disabled>Disconnect</button>
+      <div>Trạng thái Socket: <span id="status">DISCONNECTED</span></div>
+      <div>Socket ID: <span id="socketId">N/A</span></div>
+    </fieldset>
+
+    <!-- 3. Conversations (HTTP + join_conversation) -->
+    <fieldset>
+      <legend>3. Conversations (HTTP) & join_conversation (WS)</legend>
+      <button id="loadConvsBtn">
+        Tải danh sách conversations (GET /api/conversations)
+      </button>
+      <div id="conversations"></div>
+      <br />
+      <label>
+        conversationId hiện tại (sử dụng cho WS & HTTP messages):
+        <input
+          id="conversationId"
+          type="text"
+          placeholder="vd: 123e4567-e89b-12d3-a456-426614174000"
+        />
+      </label>
+      <button id="joinConvBtn">join_conversation (WS)</button>
+    </fieldset>
+
+    <!-- 4. Messages (HTTP + WS) -->
+    <fieldset>
+      <legend>4. Messages (HTTP + WS realtime)</legend>
+      <div style="margin-bottom: 8px">
+        <label>
+          limit (query param):
+          <input id="msgLimit" type="number" value="20" />
+        </label>
+        <label>
+          cursor (query param, optional):
+          <input id="msgCursor" type="text" />
+        </label>
+        <button id="loadMsgsBtn">
+          Tải messages (GET /api/conversations/:id/messages)
+        </button>
+      </div>
+      <div id="messages"></div>
+    </fieldset>
+
+    <!-- 5. send_message / message_read / presence / delete / react / unreact -->
+    <fieldset>
+      <legend>5. Các action WS</legend>
+
+      <!-- send_message -->
+      <h3>send_message</h3>
+      <label>
+        conversationId (UUID) (nếu để trống → dùng conversationId hiện tại):
+        <input
+          id="sendConvId"
+          type="text"
+          placeholder="Nếu để trống sẽ lấy từ ô conversationId phía trên"
+        />
+      </label>
+      <label>
+        type (MessageType enum - ví dụ: TEXT, IMAGE...):
+        <input id="messageType" type="text" value="TEXT" />
+      </label>
+      <label>
+        content (optional):
+        <input
+          id="messageContent"
+          type="text"
+          placeholder="Nội dung tin nhắn"
+        />
+      </label>
+      <label>
+        mediaUrl (optional):
+        <input id="mediaUrl" type="text" placeholder="https://..." />
+      </label>
+      <label>
+        replyToMessageId (UUID, optional):
+        <input id="replyToMessageId" type="text" />
+      </label>
+      <button id="sendMsgBtn">send_message</button>
+
+      <hr />
+
+      <!-- message_read -->
+      <h3>message_read</h3>
+      <label>
+        messageId (UUID):
+        <input id="readMessageId" type="text" />
+      </label>
+      <button id="readMsgBtn">message_read</button>
+
+      <hr />
+
+      <!-- get_presence -->
+      <h3>get_presence</h3>
+      <label>
+        userId cần xem presence:
+        <input id="presenceUserId" type="text" />
+      </label>
+      <button id="getPresenceBtn">get_presence</button>
+
+      <hr />
+
+      <!-- delete_message -->
+      <h3>delete_message</h3>
+      <label>
+        messageId (UUID):
+        <input id="deleteMessageId" type="text" />
+      </label>
+      <button id="deleteMsgBtn">delete_message</button>
+
+      <hr />
+
+      <!-- react / unreact -->
+      <h3>message_react / message_unreact</h3>
+      <label>
+        messageId (UUID):
+        <input id="reactMessageId" type="text" />
+      </label>
+      <label>
+        type (ReactionType enum - ví dụ: LIKE, HEART...):
+        <input id="reactType" type="text" value="LIKE" />
+      </label>
+      <button id="reactMsgBtn">message_react</button>
+      <button id="unreactMsgBtn">message_unreact</button>
+    </fieldset>
+
+    <!-- Log -->
+    <h2>Log</h2>
+    <div id="log"></div>
+
+    <script>
+      let socket = null;
+      let jwtToken = null;
+
+      const statusEl = document.getElementById('status');
+      const socketIdEl = document.getElementById('socketId');
+      const logEl = document.getElementById('log');
+      const connectBtn = document.getElementById('connectBtn');
+      const disconnectBtn = document.getElementById('disconnectBtn');
+      const tokenInput = document.getElementById('tokenInput');
+      const currentTokenEl = document.getElementById('currentToken');
+      const jwtInfoEl = document.getElementById('jwtInfo');
+      const convsEl = document.getElementById('conversations');
+      const msgsEl = document.getElementById('messages');
+
+      function log(...args) {
+        const time = new Date().toISOString();
+        const msg =
+          '[' +
+          time +
+          '] ' +
+          args
+            .map((a) =>
+              typeof a === 'object' ? JSON.stringify(a, null, 2) : String(a),
+            )
+            .join(' ') +
+          '\n';
+        logEl.textContent += msg;
+        logEl.scrollTop = logEl.scrollHeight;
+        console.log(...args);
+      }
+
+      function logError(...args) {
+        const time = new Date().toISOString();
+        const msg =
+          '[' +
+          time +
+          '] ' +
+          args
+            .map((a) =>
+              typeof a === 'object' ? JSON.stringify(a, null, 2) : String(a),
+            )
+            .join(' ') +
+          '\n';
+        const span = document.createElement('span');
+        span.textContent = msg;
+        span.className = 'error-line';
+        logEl.appendChild(span);
+        logEl.appendChild(document.createElement('br'));
+        logEl.scrollTop = logEl.scrollHeight;
+        console.error(...args);
+      }
+
+      function setStatus(text, color) {
+        statusEl.textContent = text;
+        statusEl.style.color = color || 'black';
+      }
+
+      function decodeJwt(token) {
+        try {
+          const parts = token.split('.');
+          if (parts.length !== 3) return null;
+          const payload = parts[1];
+          const decoded = atob(payload.replace(/-/g, '+').replace(/_/g, '/'));
+          return JSON.parse(decoded);
+        } catch (e) {
+          return null;
+        }
+      }
+
+      // 1. Login HTTP để lấy token (được wrap bởi ResponseInterceptor: { data, error })
+      document
+        .getElementById('loginBtn')
+        .addEventListener('click', async () => {
+          const serverUrl = document.getElementById('serverUrl').value.trim();
+          const email = document.getElementById('email').value.trim();
+          const password = document.getElementById('password').value;
+
+          if (!serverUrl || !email || !password) {
+            alert('Vui lòng nhập serverUrl, email, password');
+            return;
+          }
+
+          try {
+            log('POST /api/auth/login ...');
+            const res = await fetch(serverUrl + '/api/auth/login', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ email, password }),
+            });
+
+            const body = await res.json();
+            log('Login raw response:', body);
+
+            if (!res.ok) {
+              logError('HTTP error status:', res.status, body);
+              alert('Login thất bại, xem log.');
+              return;
+            }
+
+            // ResponseInterceptor: body = { data: ..., error: null }
+            const payload = body.data;
+
+            // Điều chỉnh chỗ này theo cấu trúc thực tế:
+            // giả sử payload = { accessToken: "..." }
+            jwtToken =
+              payload?.accessToken ||
+              payload?.access_token ||
+              payload?.token ||
+              null;
+
+            if (!jwtToken) {
+              alert(
+                'Không tìm thấy accessToken trong body.data, xem log và kiểm tra lại service login.',
+              );
+              return;
+            }
+
+            currentTokenEl.textContent = jwtToken;
+            tokenInput.value = jwtToken;
+
+            const decoded = decodeJwt(jwtToken);
+            jwtInfoEl.textContent = decoded
+              ? JSON.stringify(decoded, null, 2)
+              : 'Không decode được payload (JWT có thể không chuẩn hoặc bị mã hóa khác).';
+          } catch (err) {
+            logError('Login error:', err);
+            alert('Login lỗi, xem log.');
+          }
+        });
+
+      // 2. Kết nối WebSocket
+      connectBtn.addEventListener('click', () => {
+        const serverUrl = document.getElementById('serverUrl').value.trim();
+        const token = tokenInput.value.trim();
+
+        if (!serverUrl || !token) {
+          alert('Vui lòng nhập serverUrl và token');
+          return;
+        }
+
+        if (socket && socket.connected) {
+          alert('Socket đã kết nối, vui lòng Disconnect trước');
+          return;
+        }
+
+        log('Connecting to', serverUrl + '/chat', 'with token:', token);
+
+        socket = io(serverUrl + '/chat', {
+          query: {
+            token: token, // server đọc client.handshake.query.token
+          },
+          transports: ['websocket'],
+        });
+
+        socket.on('connect', () => {
+          log('Socket connected, id:', socket.id);
+          setStatus('CONNECTED', 'green');
+          socketIdEl.textContent = socket.id;
+          connectBtn.disabled = true;
+          disconnectBtn.disabled = false;
+        });
+
+        socket.on('disconnect', (reason) => {
+          log('Socket disconnected:', reason);
+          setStatus('DISCONNECTED', 'red');
+          socketIdEl.textContent = 'N/A';
+          connectBtn.disabled = false;
+          disconnectBtn.disabled = true;
+        });
+
+        socket.on('connect_error', (err) => {
+          logError('Connect error:', err.message || err);
+          setStatus('ERROR', 'red');
+        });
+
+        // Lắng nghe event từ ChatGateway
+        socket.on('message', (data) => {
+          log('EVENT message:', data);
+          appendMessage(data, 'WS');
+        });
+        socket.on('message_read', (data) => log('EVENT message_read:', data));
+        socket.on('presence_response', (data) =>
+          log('EVENT presence_response:', data),
+        );
+        socket.on('message_deleted', (data) =>
+          log('EVENT message_deleted:', data),
+        );
+        socket.on('message_reacted', (data) =>
+          log('EVENT message_reacted:', data),
+        );
+        socket.on('message_unreacted', (data) =>
+          log('EVENT message_unreacted:', data),
+        );
+
+        // Lắng nghe lỗi WebSocket từ AllWsExceptionsFilter
+        socket.on('ws_error', (payload) => {
+          logError('EVENT ws_error:', payload);
+        });
+      });
+
+      // Disconnect
+      disconnectBtn.addEventListener('click', () => {
+        if (socket) {
+          socket.disconnect();
+          socket = null;
+        }
+      });
+
+      // Render conversations
+      function renderConversations(list) {
+        convsEl.innerHTML = '';
+        if (!Array.isArray(list) || list.length === 0) {
+          convsEl.textContent = 'Không có conversation nào.';
+          return;
+        }
+
+        list.forEach((conv, index) => {
+          const div = document.createElement('div');
+          div.className = 'conv-item';
+
+          // Cố gắng đoán id: conv.id hoặc conv.conversationId
+          const id =
+            conv.id || conv.conversationId || conv.uuid || 'UNKNOWN_ID';
+          const title = conv.title || '(no title)';
+          const type = conv.type || '(no type)';
+
+          const btn = document.createElement('button');
+          btn.textContent = 'Chọn & join_conversation';
+          btn.onclick = () => {
+            document.getElementById('conversationId').value = id;
+            // join_conversation qua WS
+            joinConversation(id);
+          };
+
+          div.innerHTML =
+            '<b>' +
+            (index + 1) +
+            '.</b> id: <code>' +
+            id +
+            '</code><br/>title: ' +
+            title +
+            '<br/>type: ' +
+            type +
+            '<br/>';
+          div.appendChild(btn);
+
+          convsEl.appendChild(div);
+        });
+      }
+
+      // Append message vào UI
+      function appendMessage(msg, source) {
+        const div = document.createElement('div');
+        div.className = 'msg-item';
+
+        const tag = document.createElement('span');
+        tag.className = source === 'WS' ? 'tag-ws' : 'tag-http';
+        tag.textContent = '[' + source + ']';
+
+        const meta = document.createElement('span');
+        meta.className = 'msg-meta';
+
+        const id = msg.id || msg.messageId || msg.uuid || 'UNKNOWN_MSG_ID';
+        const senderId = msg.senderId || msg.userId || msg.from || '';
+        const createdAt = msg.createdAt || msg.created_at || '';
+
+        meta.textContent =
+          ' id=' +
+          id +
+          (senderId ? ' | senderId=' + senderId : '') +
+          (createdAt ? ' | createdAt=' + createdAt : '');
+
+        const content = document.createElement('div');
+        content.className = 'msg-content';
+        content.textContent =
+          'content=' +
+          (msg.content || '') +
+          ' | type=' +
+          (msg.type || '') +
+          ' | mediaUrl=' +
+          (msg.mediaUrl || msg.media_url || '');
+
+        div.appendChild(tag);
+        div.appendChild(meta);
+        div.appendChild(document.createElement('br'));
+        div.appendChild(content);
+
+        msgsEl.insertBefore(div, msgsEl.firstChild);
+      }
+
+      // 3. Load conversations (HTTP)
+      document
+        .getElementById('loadConvsBtn')
+        .addEventListener('click', async () => {
+          const serverUrl = document.getElementById('serverUrl').value.trim();
+          if (!serverUrl || !jwtToken) {
+            alert('Cần serverUrl và đã login lấy JWT trước.');
+            return;
+          }
+
+          try {
+            log('GET /api/conversations ...');
+            const res = await fetch(serverUrl + '/api/conversations', {
+              method: 'GET',
+              headers: {
+                Authorization: 'Bearer ' + jwtToken,
+              },
+            });
+            const body = await res.json();
+            log('Conversations raw response:', body);
+
+            if (!res.ok) {
+              logError('HTTP error status:', res.status, body);
+              return;
+            }
+
+            const list = body.data;
+            renderConversations(list);
+          } catch (err) {
+            logError('Load conversations error:', err);
+          }
+        });
+
+      // 4. Load messages (HTTP)
+      document
+        .getElementById('loadMsgsBtn')
+        .addEventListener('click', async () => {
+          const serverUrl = document.getElementById('serverUrl').value.trim();
+          const convId = document.getElementById('conversationId').value.trim();
+          const limit = document.getElementById('msgLimit').value;
+          const cursor = document.getElementById('msgCursor').value.trim();
+
+          if (!serverUrl || !jwtToken) {
+            alert('Cần serverUrl và đã login lấy JWT trước.');
+            return;
+          }
+          if (!convId) {
+            alert('Vui lòng nhập/s chọn conversationId.');
+            return;
+          }
+
+          const params = new URLSearchParams();
+          if (limit) params.append('limit', String(limit));
+          if (cursor) params.append('cursor', cursor);
+
+          const url =
+            serverUrl +
+            '/api/conversations/' +
+            encodeURIComponent(convId) +
+            '/messages?' +
+            params.toString();
+
+          try {
+            log('GET', url, '...');
+            const res = await fetch(url, {
+              method: 'GET',
+              headers: {
+                Authorization: 'Bearer ' + jwtToken,
+              },
+            });
+            const body = await res.json();
+            log('Messages raw response:', body);
+
+            if (!res.ok) {
+              logError('HTTP error status:', res.status, body);
+              return;
+            }
+
+            const data = body.data;
+            // data có thể là { items, cursor } hoặc array; log hết ra
+            if (Array.isArray(data)) {
+              data.forEach((m) => appendMessage(m, 'HTTP'));
+            } else if (Array.isArray(data?.items)) {
+              data.items.forEach((m) => appendMessage(m, 'HTTP'));
+              if (data.nextCursor) {
+                document.getElementById('msgCursor').value = data.nextCursor;
+              }
+            } else {
+              log('Messages format không rõ, xem log ở trên.');
+            }
+          } catch (err) {
+            logError('Load messages error:', err);
+          }
+        });
+
+      // join_conversation (WS)
+      function joinConversation(conversationId) {
+        if (!socket || !socket.connected) {
+          alert('Chưa kết nối socket');
+          return;
+        }
+        if (!conversationId) {
+          alert('Vui lòng nhập conversationId (UUID)');
+          return;
+        }
+        const payload = { conversationId };
+        log('EMIT join_conversation:', payload);
+        socket.emit('join_conversation', payload);
+      }
+
+      document.getElementById('joinConvBtn').addEventListener('click', () => {
+        const conversationId = document
+          .getElementById('conversationId')
+          .value.trim();
+        joinConversation(conversationId);
+      });
+
+      // 5. send_message
+      document.getElementById('sendMsgBtn').addEventListener('click', () => {
+        if (!socket || !socket.connected) {
+          alert('Chưa kết nối socket');
+          return;
+        }
+
+        const convIdInput = document.getElementById('sendConvId').value.trim();
+        const conversationId =
+          convIdInput || document.getElementById('conversationId').value.trim();
+        const type = document.getElementById('messageType').value.trim();
+        const content = document.getElementById('messageContent').value || null;
+        const mediaUrl =
+          document.getElementById('mediaUrl').value.trim() || null;
+        const replyToMessageId =
+          document.getElementById('replyToMessageId').value.trim() || null;
+
+        if (!conversationId) {
+          alert('Vui lòng nhập conversationId (UUID)');
+          return;
+        }
+        if (!type) {
+          alert('Vui lòng nhập type (MessageType enum)');
+          return;
+        }
+
+        const payload = {
+          conversationId,
+          type,
+          content,
+          mediaUrl,
+          replyToMessageId,
+        };
+
+        log('EMIT send_message:', payload);
+        socket.emit('send_message', payload);
+      });
+
+      // message_read
+      document.getElementById('readMsgBtn').addEventListener('click', () => {
+        if (!socket || !socket.connected) {
+          alert('Chưa kết nối socket');
+          return;
+        }
+        const messageId = document.getElementById('readMessageId').value.trim();
+        if (!messageId) {
+          alert('Vui lòng nhập messageId (UUID)');
+          return;
+        }
+        const payload = { messageId };
+        log('EMIT message_read:', payload);
+        socket.emit('message_read', payload);
+      });
+
+      // get_presence
+      document
+        .getElementById('getPresenceBtn')
+        .addEventListener('click', () => {
+          if (!socket || !socket.connected) {
+            alert('Chưa kết nối socket');
+            return;
+          }
+          const userId = document.getElementById('presenceUserId').value.trim();
+          if (!userId) {
+            alert('Vui lòng nhập userId');
+            return;
+          }
+          const payload = { userId };
+          log('EMIT get_presence:', payload);
+          socket.emit('get_presence', payload);
+        });
+
+      // delete_message
+      document.getElementById('deleteMsgBtn').addEventListener('click', () => {
+        if (!socket || !socket.connected) {
+          alert('Chưa kết nối socket');
+          return;
+        }
+        const messageId = document
+          .getElementById('deleteMessageId')
+          .value.trim();
+        if (!messageId) {
+          alert('Vui lòng nhập messageId (UUID)');
+          return;
+        }
+        const payload = { messageId };
+        log('EMIT delete_message:', payload);
+        socket.emit('delete_message', payload);
+      });
+
+      // message_react
+      document.getElementById('reactMsgBtn').addEventListener('click', () => {
+        if (!socket || !socket.connected) {
+          alert('Chưa kết nối socket');
+          return;
+        }
+        const messageId = document
+          .getElementById('reactMessageId')
+          .value.trim();
+        const type = document.getElementById('reactType').value.trim();
+        if (!messageId || !type) {
+          alert('Vui lòng nhập messageId (UUID) và type (ReactionType)');
+          return;
+        }
+        const payload = { messageId, type };
+        log('EMIT message_react:', payload);
+        socket.emit('message_react', payload);
+      });
+
+      // message_unreact
+      document.getElementById('unreactMsgBtn').addEventListener('click', () => {
+        if (!socket || !socket.connected) {
+          alert('Chưa kết nối socket');
+          return;
+        }
+        const messageId = document
+          .getElementById('reactMessageId')
+          .value.trim();
+        if (!messageId) {
+          alert('Vui lòng nhập messageId (UUID)');
+          return;
+        }
+        const payload = { messageId };
+        log('EMIT message_unreact:', payload);
+        socket.emit('message_unreact', payload);
+      });
+    </script>
+  </body>
+</html>
