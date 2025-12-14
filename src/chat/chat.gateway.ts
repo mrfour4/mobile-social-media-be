@@ -14,6 +14,11 @@ import { Server, Socket } from 'socket.io';
 import { JoinConversationDto } from 'src/chat/dtos/join-conversation.dto';
 import { MessageReadDto } from 'src/chat/dtos/message-read.dto';
 import { AllWsExceptionsFilter } from 'src/common/filters/ws-exception.filter';
+import { DeleteMessageDto } from 'src/messages/dtos/delete-message.dto';
+import {
+  MessageReactDto,
+  MessageUnreactDto,
+} from 'src/messages/dtos/message-react-ws.dto';
 import { SendMessageDto } from 'src/messages/dtos/send-message.dto';
 import { MessagesService } from 'src/messages/messages.service';
 import { GetPresenceDto } from 'src/presence/dtos/get-presence.dto';
@@ -147,6 +152,72 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     client.emit('presence_response', {
       userId: data.userId,
       presence,
+    });
+  }
+
+  @SubscribeMessage('delete_message')
+  async handleDeleteMessage(
+    @ConnectedSocket() client: Socket,
+    @MessageBody() data: DeleteMessageDto,
+  ) {
+    const userId = client.data.userId as string;
+    if (!userId) {
+      client.disconnect();
+      return;
+    }
+
+    const { messageId, conversationId } =
+      await this.messagesService.softDeleteMessage(userId, data.messageId);
+
+    console.log('messageId', messageId, conversationId);
+
+    this.server.to(`conv:${conversationId}`).emit('message_deleted', {
+      messageId,
+    });
+  }
+
+  @SubscribeMessage('message_react')
+  async handleMessageReact(
+    @ConnectedSocket() client: Socket,
+    @MessageBody() data: MessageReactDto,
+  ) {
+    const userId = client.data.userId as string;
+    if (!userId) {
+      client.disconnect();
+      return;
+    }
+
+    const { messageId, conversationId, type } =
+      await this.messagesService.reactToMessage(
+        userId,
+        data.messageId,
+        data.type,
+      );
+
+    this.server.to(`conv:${conversationId}`).emit('message_reacted', {
+      messageId,
+      userId,
+      type,
+    });
+  }
+
+  @SubscribeMessage('message_unreact')
+  async handleMessageUnreact(
+    @ConnectedSocket() client: Socket,
+    @MessageBody() data: MessageUnreactDto,
+  ) {
+    const userId = client.data.userId as string;
+    if (!userId) {
+      client.disconnect();
+      return;
+    }
+
+    const { messageId, conversationId } =
+      await this.messagesService.unreactMessage(userId, data.messageId);
+
+    this.server.to(`conv:${conversationId}`).emit('message_unreacted', {
+      messageId,
+      userId,
     });
   }
 }

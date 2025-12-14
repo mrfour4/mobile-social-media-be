@@ -6,7 +6,7 @@ import {
 import { ConversationsService } from 'src/conversations/conversations.service';
 import { Prisma } from 'src/generated/prisma/client';
 import { PrismaService } from '../database/prisma.service';
-import { MessageType } from '../generated/prisma/enums';
+import { MessageType, ReactionType } from '../generated/prisma/enums';
 import { MessagesCursorQueryDto } from './dtos/messages-cursor-query.dto';
 import { SendMessageDto } from './dtos/send-message.dto';
 
@@ -43,6 +43,7 @@ export class MessagesService {
 
     const where: Prisma.MessageWhereInput = {
       conversationId,
+      deletedAt: null,
     };
 
     if (cursorMessage) {
@@ -152,5 +153,109 @@ export class MessagesService {
     });
 
     return { success: true };
+  }
+
+  async softDeleteMessage(userId: string, messageId: string) {
+    const message = await this.prisma.message.findUnique({
+      where: { id: messageId },
+    });
+
+    if (!message) {
+      throw new NotFoundException('Message not found');
+    }
+
+    await this.conversationsService.ensureMember(
+      userId,
+      message.conversationId,
+    );
+
+    if (message.senderId !== userId) {
+      throw new BadRequestException('Only sender can delete this message');
+    }
+
+    const deleted = await this.prisma.message.update({
+      where: { id: messageId },
+      data: {
+        deletedAt: new Date(),
+        content: null,
+        mediaUrl: null,
+      },
+    });
+
+    return {
+      messageId,
+      conversationId: deleted.conversationId,
+    };
+  }
+
+  async reactToMessage(userId: string, messageId: string, type: ReactionType) {
+    const message = await this.prisma.message.findUnique({
+      where: { id: messageId },
+    });
+
+    if (!message) {
+      throw new NotFoundException('Message not found');
+    }
+
+    if (message.deletedAt) {
+      throw new BadRequestException('Cannot react to deleted message');
+    }
+
+    await this.conversationsService.ensureMember(
+      userId,
+      message.conversationId,
+    );
+
+    const reaction = await this.prisma.messageReaction.upsert({
+      where: {
+        messageId_userId: {
+          messageId,
+          userId,
+        },
+      },
+      update: {
+        type,
+      },
+      create: {
+        messageId,
+        userId,
+        type,
+      },
+    });
+
+    return {
+      messageId,
+      conversationId: message.conversationId,
+      userId,
+      type: reaction.type,
+    };
+  }
+
+  async unreactMessage(userId: string, messageId: string) {
+    const message = await this.prisma.message.findUnique({
+      where: { id: messageId },
+    });
+
+    if (!message) {
+      throw new NotFoundException('Message not found');
+    }
+
+    await this.conversationsService.ensureMember(
+      userId,
+      message.conversationId,
+    );
+
+    await this.prisma.messageReaction.deleteMany({
+      where: {
+        messageId,
+        userId,
+      },
+    });
+
+    return {
+      messageId,
+      conversationId: message.conversationId,
+      userId,
+    };
   }
 }

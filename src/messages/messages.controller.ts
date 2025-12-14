@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -10,6 +11,7 @@ import {
 import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { MessagesCursorQueryDto } from './dtos/messages-cursor-query.dto';
+import { ReactMessageDto } from './dtos/react-message.dto';
 import { SendMessageDto } from './dtos/send-message.dto';
 import { MessagesService } from './messages.service';
 
@@ -43,5 +45,33 @@ export class MessagesController {
   @Post('messages/:id/read')
   markRead(@CurrentUser() user: any, @Param('id') messageId: string) {
     return this.messagesService.markMessageRead(user.sub, messageId);
+  }
+
+  @Delete('messages/:id')
+  softDelete(@CurrentUser() user: any, @Param('id') messageId: string) {
+    return this.messagesService.softDeleteMessage(user.sub, messageId);
+  }
+
+  @Post('messages/:id/reactions')
+  reactMessage(
+    @CurrentUser() user: any,
+    @Param('id') messageId: string,
+    @Body() body: Omit<ReactMessageDto, 'messageId'>,
+  ) {
+    const dto: ReactMessageDto = {
+      ...body,
+      messageId,
+    };
+
+    return this.messagesService.reactToMessage(
+      user.sub,
+      dto.messageId,
+      dto.type,
+    );
+  }
+
+  @Delete('messages/:id/reactions')
+  unreactMessage(@CurrentUser() user: any, @Param('id') messageId: string) {
+    return this.messagesService.unreactMessage(user.sub, messageId);
   }
 }
