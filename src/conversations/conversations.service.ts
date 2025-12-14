@@ -1,4 +1,3 @@
-// src/chat/conversations.service.ts
 import {
   BadRequestException,
   ForbiddenException,

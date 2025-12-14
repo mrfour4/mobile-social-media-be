@@ -1,4 +1,3 @@
-// src/chat/conversations.controller.ts
 import {
   Body,
   Controller,
@@ -8,8 +7,8 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { CurrentUser } from '../common/decorators/user.decorator';
-import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import { CurrentUser } from 'src/common/decorators/user.decorator';
+import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { ConversationsService } from './conversations.service';
 import { CreateConversationDto } from './dtos/create-conversation.dto';
 

@@ -1,27 +1,11 @@
-// src/chat/chat.module.ts
 import { Module } from '@nestjs/common';
 import { AuthModule } from 'src/auth/auth.module';
+import { MessagesModule } from 'src/messages/messages.module';
+import { PresenceModule } from 'src/presence/presence.module';
 import { ChatGateway } from './chat.gateway';
-import { ConversationsController } from './conversations.controller';
-import { ConversationsService } from './conversations.service';
-import { MessagesController } from './messages.controller';
-import { MessagesService } from './messages.service';
-import { PresenceController } from './presence.controller';
-import { PresenceService } from './presence.service';
 
 @Module({
-  imports: [AuthModule],
-  providers: [
-    ConversationsService,
-    MessagesService,
-    ChatGateway,
-    PresenceService,
-  ],
-  controllers: [
-    ConversationsController,
-    MessagesController,
-    PresenceController,
-  ],
-  exports: [ConversationsService, MessagesService],
+  imports: [AuthModule, MessagesModule, PresenceModule],
+  providers: [ChatGateway],
 })
 export class ChatModule {}

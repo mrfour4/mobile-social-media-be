@@ -1,4 +1,3 @@
-// src/chat/messages.controller.ts
 import {
   Body,
   Controller,
@@ -8,8 +7,8 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { CurrentUser } from '../common/decorators/user.decorator';
-import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import { CurrentUser } from 'src/common/decorators/user.decorator';
+import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { MessagesCursorQueryDto } from './dtos/messages-cursor-query.dto';
 import { SendMessageDto } from './dtos/send-message.dto';
 import { MessagesService } from './messages.service';

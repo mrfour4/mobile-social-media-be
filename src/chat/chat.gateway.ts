@@ -11,13 +11,13 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import { AllWsExceptionsFilter } from '../common/filters/ws-exception.filter';
-import { GetPresenceDto } from './dtos/get-presence.dto';
-import { JoinConversationDto } from './dtos/join-conversation.dto';
-import { MessageReadDto } from './dtos/message-read.dto';
-import { SendMessageDto } from './dtos/send-message.dto';
-import { MessagesService } from './messages.service';
-import { PresenceService } from './presence.service';
+import { JoinConversationDto } from 'src/chat/dtos/join-conversation.dto';
+import { MessageReadDto } from 'src/chat/dtos/message-read.dto';
+import { AllWsExceptionsFilter } from 'src/common/filters/ws-exception.filter';
+import { SendMessageDto } from 'src/messages/dtos/send-message.dto';
+import { MessagesService } from 'src/messages/messages.service';
+import { GetPresenceDto } from 'src/presence/dtos/get-presence.dto';
+import { PresenceService } from 'src/presence/presence.service';
 
 @WebSocketGateway({ namespace: 'chat', cors: { origin: '*' } })
 @UsePipes(
@@ -54,8 +54,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
       const userId = payload.sub as string;
 
-      console.log('client connected', userId);
-
       client.data.userId = userId;
       client.join(`user:${userId}`);
 
@@ -67,8 +65,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   async handleDisconnect(client: Socket) {
     const userId = client.data.userId as string | undefined;
-
-    console.log('Client disconnected', userId);
 
     if (userId) {
       await this.presenceService.userDisconnected(userId, this.server);
@@ -88,8 +84,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       return;
     }
 
-    console.log('join_conversation', data);
-
     client.join(`conv:${conversationId}`);
   }
 
@@ -103,8 +97,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       client.disconnect();
       return;
     }
-
-    console.log('send_message', payload);
 
     const message = await this.messagesService.sendMessage(userId, {
       conversationId: payload.conversationId,
@@ -127,8 +119,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       client.disconnect();
       return;
     }
-
-    console.log('message_read', data);
 
     await this.messagesService.markMessageRead(userId, data.messageId);
 

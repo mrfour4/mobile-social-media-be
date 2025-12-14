@@ -3,10 +3,10 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { ConversationsService } from 'src/conversations/conversations.service';
 import { Prisma } from 'src/generated/prisma/client';
 import { PrismaService } from '../database/prisma.service';
 import { MessageType } from '../generated/prisma/enums';
-import { ConversationsService } from './conversations.service';
 import { MessagesCursorQueryDto } from './dtos/messages-cursor-query.dto';
 import { SendMessageDto } from './dtos/send-message.dto';
 
