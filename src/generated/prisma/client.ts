@@ -132,3 +132,8 @@ export type MessageRead = Prisma.MessageReadModel
  * 
  */
 export type Notification = Prisma.NotificationModel
+/**
+ * Model AdminActionLog
+ * 
+ */
+export type AdminActionLog = Prisma.AdminActionLogModel

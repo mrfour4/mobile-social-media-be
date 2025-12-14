@@ -133,6 +133,8 @@ model User {
   messageReads MessageRead[]
 
   notifications Notification[]
+
+  adminActions AdminActionLog[]
 }
 
 model RefreshToken {
@@ -452,4 +454,21 @@ model Notification {
   @@index([userId])
   @@index([type])
   @@index([isRead])
+}
+
+model AdminActionLog {
+  id String @id @default(uuid())
+
+  admin   User   @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  adminId String
+
+  actionType String
+  targetType String?
+  targetId   String?
+  metadata   Json?
+
+  createdAt DateTime @default(now())
+
+  @@index([adminId])
+  @@index([targetType, targetId])
 }
