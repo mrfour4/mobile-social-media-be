@@ -15,4 +15,8 @@ export class ListCommentsDto {
   @IsOptional()
   @IsBooleanString()
   includeDeleted?: string;
+
+  @IsOptional()
+  @IsBooleanString()
+  includeHidden?: string;
 }

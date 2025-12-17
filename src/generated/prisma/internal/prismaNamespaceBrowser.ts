@@ -184,6 +184,7 @@ export const CommentScalarFieldEnum = {
   aiStatus: 'aiStatus',
   aiReason: 'aiReason',
   deletedAt: 'deletedAt',
+  hiddenAt: 'hiddenAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

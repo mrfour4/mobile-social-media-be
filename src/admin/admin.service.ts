@@ -238,12 +238,15 @@ export class AdminService {
   }
 
   async listComments(dto: ListCommentsDto) {
-    const { page, limit, includeDeleted } = dto;
+    const { page, limit, includeDeleted, includeHidden } = dto;
     const skip = (page - 1) * limit;
 
     const where: any = {};
     if (includeDeleted !== 'true') {
       where.deletedAt = null;
+    }
+    if (includeHidden !== 'true') {
+      where.hiddenAt = null;
     }
 
     const [items, total] = await this.prisma.$transaction([
@@ -274,17 +277,36 @@ export class AdminService {
     });
     if (!comment) throw new NotFoundException('Comment not found');
 
-    if (comment.deletedAt) {
+    if (comment.deletedAt)
       throw new BadRequestException('Comment already deleted');
-    }
+    if (comment.hiddenAt)
+      throw new BadRequestException('Comment already hidden');
 
     const updated = await this.prisma.comment.update({
       where: { id: commentId },
-      data: { deletedAt: new Date() },
+      data: { hiddenAt: new Date() },
     });
 
     await this.logAction(adminId, 'HIDE_COMMENT', 'COMMENT', commentId, null);
+    return updated;
+  }
 
+  async unhideComment(adminId: string, commentId: string) {
+    const comment = await this.prisma.comment.findUnique({
+      where: { id: commentId },
+    });
+    if (!comment) throw new NotFoundException('Comment not found');
+
+    if (comment.deletedAt) throw new BadRequestException('Comment is deleted');
+    if (!comment.hiddenAt)
+      throw new BadRequestException('Comment is not hidden');
+
+    const updated = await this.prisma.comment.update({
+      where: { id: commentId },
+      data: { hiddenAt: null },
+    });
+
+    await this.logAction(adminId, 'UNHIDE_COMMENT', 'COMMENT', commentId, null);
     return updated;
   }
 

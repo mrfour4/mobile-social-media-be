@@ -253,12 +253,16 @@ model Comment {
   reactions Reaction[]
 
   deletedAt DateTime?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  hiddenAt  DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([postId])
   @@index([authorId])
   @@index([parentCommentId])
+  @@index([hiddenAt])
+  @@index([deletedAt])
 }
 
 model Reaction {

@@ -29,10 +29,13 @@ export class CommentsService {
       const parent = await this.prisma.comment.findUnique({
         where: { id: dto.parentCommentId },
       });
-      if (!parent || parent.deletedAt)
+      if (!parent || parent.deletedAt || parent.hiddenAt) {
         throw new BadRequestException('Parent comment does not exist');
-      if (parent.parentCommentId)
+      }
+
+      if (parent.parentCommentId) {
         throw new BadRequestException('Only 1-level reply allowed');
+      }
     }
 
     const moderation = await this.aiService.moderateText(dto.content ?? '', {
@@ -95,12 +98,13 @@ export class CommentsService {
         postId,
         parentCommentId: null,
         deletedAt: null,
+        hiddenAt: null,
       },
       include: {
         author: true,
         replies: {
           include: { author: true },
-          where: { deletedAt: null },
+          where: { deletedAt: null, hiddenAt: null },
           orderBy: { createdAt: 'asc' },
         },
       },

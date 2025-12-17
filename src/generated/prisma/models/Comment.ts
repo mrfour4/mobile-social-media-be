@@ -33,6 +33,7 @@ export type CommentMinAggregateOutputType = {
   aiStatus: $Enums.AiStatus | null
   aiReason: string | null
   deletedAt: Date | null
+  hiddenAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -46,6 +47,7 @@ export type CommentMaxAggregateOutputType = {
   aiStatus: $Enums.AiStatus | null
   aiReason: string | null
   deletedAt: Date | null
+  hiddenAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -59,6 +61,7 @@ export type CommentCountAggregateOutputType = {
   aiStatus: number
   aiReason: number
   deletedAt: number
+  hiddenAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -74,6 +77,7 @@ export type CommentMinAggregateInputType = {
   aiStatus?: true
   aiReason?: true
   deletedAt?: true
+  hiddenAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -87,6 +91,7 @@ export type CommentMaxAggregateInputType = {
   aiStatus?: true
   aiReason?: true
   deletedAt?: true
+  hiddenAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -100,6 +105,7 @@ export type CommentCountAggregateInputType = {
   aiStatus?: true
   aiReason?: true
   deletedAt?: true
+  hiddenAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -186,6 +192,7 @@ export type CommentGroupByOutputType = {
   aiStatus: $Enums.AiStatus
   aiReason: string | null
   deletedAt: Date | null
+  hiddenAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: CommentCountAggregateOutputType | null
@@ -220,6 +227,7 @@ export type CommentWhereInput = {
   aiStatus?: Prisma.EnumAiStatusFilter<"Comment"> | $Enums.AiStatus
   aiReason?: Prisma.StringNullableFilter<"Comment"> | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"Comment"> | Date | string | null
+  hiddenAt?: Prisma.DateTimeNullableFilter<"Comment"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Comment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Comment"> | Date | string
   post?: Prisma.XOR<Prisma.PostScalarRelationFilter, Prisma.PostWhereInput>
@@ -238,6 +246,7 @@ export type CommentOrderByWithRelationInput = {
   aiStatus?: Prisma.SortOrder
   aiReason?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  hiddenAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   post?: Prisma.PostOrderByWithRelationInput
@@ -259,6 +268,7 @@ export type CommentWhereUniqueInput = Prisma.AtLeast<{
   aiStatus?: Prisma.EnumAiStatusFilter<"Comment"> | $Enums.AiStatus
   aiReason?: Prisma.StringNullableFilter<"Comment"> | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"Comment"> | Date | string | null
+  hiddenAt?: Prisma.DateTimeNullableFilter<"Comment"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Comment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Comment"> | Date | string
   post?: Prisma.XOR<Prisma.PostScalarRelationFilter, Prisma.PostWhereInput>
@@ -277,6 +287,7 @@ export type CommentOrderByWithAggregationInput = {
   aiStatus?: Prisma.SortOrder
   aiReason?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  hiddenAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.CommentCountOrderByAggregateInput
@@ -296,6 +307,7 @@ export type CommentScalarWhereWithAggregatesInput = {
   aiStatus?: Prisma.EnumAiStatusWithAggregatesFilter<"Comment"> | $Enums.AiStatus
   aiReason?: Prisma.StringNullableWithAggregatesFilter<"Comment"> | string | null
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Comment"> | Date | string | null
+  hiddenAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Comment"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Comment"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Comment"> | Date | string
 }
@@ -306,6 +318,7 @@ export type CommentCreateInput = {
   aiStatus?: $Enums.AiStatus
   aiReason?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   post: Prisma.PostCreateNestedOneWithoutCommentsInput
@@ -324,6 +337,7 @@ export type CommentUncheckedCreateInput = {
   aiStatus?: $Enums.AiStatus
   aiReason?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   replies?: Prisma.CommentUncheckedCreateNestedManyWithoutParentCommentInput
@@ -336,6 +350,7 @@ export type CommentUpdateInput = {
   aiStatus?: Prisma.EnumAiStatusFieldUpdateOperationsInput | $Enums.AiStatus
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   post?: Prisma.PostUpdateOneRequiredWithoutCommentsNestedInput
@@ -354,6 +369,7 @@ export type CommentUncheckedUpdateInput = {
   aiStatus?: Prisma.EnumAiStatusFieldUpdateOperationsInput | $Enums.AiStatus
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   replies?: Prisma.CommentUncheckedUpdateManyWithoutParentCommentNestedInput
@@ -369,6 +385,7 @@ export type CommentCreateManyInput = {
   aiStatus?: $Enums.AiStatus
   aiReason?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -379,6 +396,7 @@ export type CommentUpdateManyMutationInput = {
   aiStatus?: Prisma.EnumAiStatusFieldUpdateOperationsInput | $Enums.AiStatus
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -392,6 +410,7 @@ export type CommentUncheckedUpdateManyInput = {
   aiStatus?: Prisma.EnumAiStatusFieldUpdateOperationsInput | $Enums.AiStatus
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -420,6 +439,7 @@ export type CommentCountOrderByAggregateInput = {
   aiStatus?: Prisma.SortOrder
   aiReason?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  hiddenAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -433,6 +453,7 @@ export type CommentMaxOrderByAggregateInput = {
   aiStatus?: Prisma.SortOrder
   aiReason?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  hiddenAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -446,6 +467,7 @@ export type CommentMinOrderByAggregateInput = {
   aiStatus?: Prisma.SortOrder
   aiReason?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  hiddenAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -614,6 +636,7 @@ export type CommentCreateWithoutAuthorInput = {
   aiStatus?: $Enums.AiStatus
   aiReason?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   post: Prisma.PostCreateNestedOneWithoutCommentsInput
@@ -630,6 +653,7 @@ export type CommentUncheckedCreateWithoutAuthorInput = {
   aiStatus?: $Enums.AiStatus
   aiReason?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   replies?: Prisma.CommentUncheckedCreateNestedManyWithoutParentCommentInput
@@ -674,6 +698,7 @@ export type CommentScalarWhereInput = {
   aiStatus?: Prisma.EnumAiStatusFilter<"Comment"> | $Enums.AiStatus
   aiReason?: Prisma.StringNullableFilter<"Comment"> | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"Comment"> | Date | string | null
+  hiddenAt?: Prisma.DateTimeNullableFilter<"Comment"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Comment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Comment"> | Date | string
 }
@@ -684,6 +709,7 @@ export type CommentCreateWithoutPostInput = {
   aiStatus?: $Enums.AiStatus
   aiReason?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutCommentsInput
@@ -700,6 +726,7 @@ export type CommentUncheckedCreateWithoutPostInput = {
   aiStatus?: $Enums.AiStatus
   aiReason?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   replies?: Prisma.CommentUncheckedCreateNestedManyWithoutParentCommentInput
@@ -738,6 +765,7 @@ export type CommentCreateWithoutRepliesInput = {
   aiStatus?: $Enums.AiStatus
   aiReason?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   post: Prisma.PostCreateNestedOneWithoutCommentsInput
@@ -755,6 +783,7 @@ export type CommentUncheckedCreateWithoutRepliesInput = {
   aiStatus?: $Enums.AiStatus
   aiReason?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   reactions?: Prisma.ReactionUncheckedCreateNestedManyWithoutCommentInput
@@ -771,6 +800,7 @@ export type CommentCreateWithoutParentCommentInput = {
   aiStatus?: $Enums.AiStatus
   aiReason?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   post: Prisma.PostCreateNestedOneWithoutCommentsInput
@@ -787,6 +817,7 @@ export type CommentUncheckedCreateWithoutParentCommentInput = {
   aiStatus?: $Enums.AiStatus
   aiReason?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   replies?: Prisma.CommentUncheckedCreateNestedManyWithoutParentCommentInput
@@ -820,6 +851,7 @@ export type CommentUpdateWithoutRepliesInput = {
   aiStatus?: Prisma.EnumAiStatusFieldUpdateOperationsInput | $Enums.AiStatus
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   post?: Prisma.PostUpdateOneRequiredWithoutCommentsNestedInput
@@ -837,6 +869,7 @@ export type CommentUncheckedUpdateWithoutRepliesInput = {
   aiStatus?: Prisma.EnumAiStatusFieldUpdateOperationsInput | $Enums.AiStatus
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reactions?: Prisma.ReactionUncheckedUpdateManyWithoutCommentNestedInput
@@ -864,6 +897,7 @@ export type CommentCreateWithoutReactionsInput = {
   aiStatus?: $Enums.AiStatus
   aiReason?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   post: Prisma.PostCreateNestedOneWithoutCommentsInput
@@ -881,6 +915,7 @@ export type CommentUncheckedCreateWithoutReactionsInput = {
   aiStatus?: $Enums.AiStatus
   aiReason?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   replies?: Prisma.CommentUncheckedCreateNestedManyWithoutParentCommentInput
@@ -908,6 +943,7 @@ export type CommentUpdateWithoutReactionsInput = {
   aiStatus?: Prisma.EnumAiStatusFieldUpdateOperationsInput | $Enums.AiStatus
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   post?: Prisma.PostUpdateOneRequiredWithoutCommentsNestedInput
@@ -925,6 +961,7 @@ export type CommentUncheckedUpdateWithoutReactionsInput = {
   aiStatus?: Prisma.EnumAiStatusFieldUpdateOperationsInput | $Enums.AiStatus
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   replies?: Prisma.CommentUncheckedUpdateManyWithoutParentCommentNestedInput
@@ -938,6 +975,7 @@ export type CommentCreateManyAuthorInput = {
   aiStatus?: $Enums.AiStatus
   aiReason?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -948,6 +986,7 @@ export type CommentUpdateWithoutAuthorInput = {
   aiStatus?: Prisma.EnumAiStatusFieldUpdateOperationsInput | $Enums.AiStatus
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   post?: Prisma.PostUpdateOneRequiredWithoutCommentsNestedInput
@@ -964,6 +1003,7 @@ export type CommentUncheckedUpdateWithoutAuthorInput = {
   aiStatus?: Prisma.EnumAiStatusFieldUpdateOperationsInput | $Enums.AiStatus
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   replies?: Prisma.CommentUncheckedUpdateManyWithoutParentCommentNestedInput
@@ -978,6 +1018,7 @@ export type CommentUncheckedUpdateManyWithoutAuthorInput = {
   aiStatus?: Prisma.EnumAiStatusFieldUpdateOperationsInput | $Enums.AiStatus
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -990,6 +1031,7 @@ export type CommentCreateManyPostInput = {
   aiStatus?: $Enums.AiStatus
   aiReason?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1000,6 +1042,7 @@ export type CommentUpdateWithoutPostInput = {
   aiStatus?: Prisma.EnumAiStatusFieldUpdateOperationsInput | $Enums.AiStatus
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutCommentsNestedInput
@@ -1016,6 +1059,7 @@ export type CommentUncheckedUpdateWithoutPostInput = {
   aiStatus?: Prisma.EnumAiStatusFieldUpdateOperationsInput | $Enums.AiStatus
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   replies?: Prisma.CommentUncheckedUpdateManyWithoutParentCommentNestedInput
@@ -1030,6 +1074,7 @@ export type CommentUncheckedUpdateManyWithoutPostInput = {
   aiStatus?: Prisma.EnumAiStatusFieldUpdateOperationsInput | $Enums.AiStatus
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1042,6 +1087,7 @@ export type CommentCreateManyParentCommentInput = {
   aiStatus?: $Enums.AiStatus
   aiReason?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1052,6 +1098,7 @@ export type CommentUpdateWithoutParentCommentInput = {
   aiStatus?: Prisma.EnumAiStatusFieldUpdateOperationsInput | $Enums.AiStatus
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   post?: Prisma.PostUpdateOneRequiredWithoutCommentsNestedInput
@@ -1068,6 +1115,7 @@ export type CommentUncheckedUpdateWithoutParentCommentInput = {
   aiStatus?: Prisma.EnumAiStatusFieldUpdateOperationsInput | $Enums.AiStatus
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   replies?: Prisma.CommentUncheckedUpdateManyWithoutParentCommentNestedInput
@@ -1082,6 +1130,7 @@ export type CommentUncheckedUpdateManyWithoutParentCommentInput = {
   aiStatus?: Prisma.EnumAiStatusFieldUpdateOperationsInput | $Enums.AiStatus
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1135,6 +1184,7 @@ export type CommentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   aiStatus?: boolean
   aiReason?: boolean
   deletedAt?: boolean
+  hiddenAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   post?: boolean | Prisma.PostDefaultArgs<ExtArgs>
@@ -1154,6 +1204,7 @@ export type CommentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   aiStatus?: boolean
   aiReason?: boolean
   deletedAt?: boolean
+  hiddenAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   post?: boolean | Prisma.PostDefaultArgs<ExtArgs>
@@ -1170,6 +1221,7 @@ export type CommentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   aiStatus?: boolean
   aiReason?: boolean
   deletedAt?: boolean
+  hiddenAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   post?: boolean | Prisma.PostDefaultArgs<ExtArgs>
@@ -1186,11 +1238,12 @@ export type CommentSelectScalar = {
   aiStatus?: boolean
   aiReason?: boolean
   deletedAt?: boolean
+  hiddenAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type CommentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "postId" | "authorId" | "parentCommentId" | "content" | "aiStatus" | "aiReason" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["comment"]>
+export type CommentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "postId" | "authorId" | "parentCommentId" | "content" | "aiStatus" | "aiReason" | "deletedAt" | "hiddenAt" | "createdAt" | "updatedAt", ExtArgs["result"]["comment"]>
 export type CommentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   post?: boolean | Prisma.PostDefaultArgs<ExtArgs>
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1228,6 +1281,7 @@ export type $CommentPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     aiStatus: $Enums.AiStatus
     aiReason: string | null
     deletedAt: Date | null
+    hiddenAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["comment"]>
@@ -1666,6 +1720,7 @@ export interface CommentFieldRefs {
   readonly aiStatus: Prisma.FieldRef<"Comment", 'AiStatus'>
   readonly aiReason: Prisma.FieldRef<"Comment", 'String'>
   readonly deletedAt: Prisma.FieldRef<"Comment", 'DateTime'>
+  readonly hiddenAt: Prisma.FieldRef<"Comment", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Comment", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Comment", 'DateTime'>
 }

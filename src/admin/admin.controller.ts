@@ -105,4 +105,9 @@ export class AdminController {
   ) {
     return this.adminService.approvePasswordResetRequest(admin.sub, token);
   }
+
+  @Patch('comments/:id/unhide')
+  unhideComment(@CurrentUser() admin: any, @Param('id') commentId: string) {
+    return this.adminService.unhideComment(admin.sub, commentId);
+  }
 }
