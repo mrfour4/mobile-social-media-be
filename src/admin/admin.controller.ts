@@ -110,4 +110,9 @@ export class AdminController {
   unhideComment(@CurrentUser() admin: any, @Param('id') commentId: string) {
     return this.adminService.unhideComment(admin.sub, commentId);
   }
+
+  @Get('stats')
+  getStats() {
+    return this.adminService.getStats();
+  }
 }

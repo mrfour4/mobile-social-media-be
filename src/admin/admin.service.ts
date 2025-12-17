@@ -425,4 +425,51 @@ export class AdminService {
 
     return { success: true };
   }
+
+  async getStats() {
+    const [
+      usersActive,
+      usersBanned,
+
+      postsTotal,
+      postsHidden,
+      postsDeleted,
+
+      commentsTotal,
+      commentsHidden,
+      commentsDeleted,
+    ] = await this.prisma.$transaction([
+      this.prisma.user.count({ where: { deletedAt: null, isBanned: false } }),
+      this.prisma.user.count({ where: { deletedAt: null, isBanned: true } }),
+
+      this.prisma.post.count({}),
+      this.prisma.post.count({
+        where: { hiddenAt: { not: null }, deletedAt: null },
+      }),
+      this.prisma.post.count({ where: { deletedAt: { not: null } } }),
+
+      this.prisma.comment.count({}),
+      this.prisma.comment.count({
+        where: { hiddenAt: { not: null }, deletedAt: null },
+      }),
+      this.prisma.comment.count({ where: { deletedAt: { not: null } } }),
+    ]);
+
+    return {
+      users: {
+        active: usersActive,
+        banned: usersBanned,
+      },
+      posts: {
+        total: postsTotal,
+        hidden: postsHidden,
+        deleted: postsDeleted,
+      },
+      comments: {
+        total: commentsTotal,
+        hidden: commentsHidden,
+        deleted: commentsDeleted,
+      },
+    };
+  }
 }
