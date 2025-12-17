@@ -1,15 +1,13 @@
-// src/comments/dtos/comment-query.dto.ts
-import { Type } from 'class-transformer';
-import { IsNumber, Min } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsInt, IsOptional, IsString, Min } from 'class-validator';
 
 export class CommentQueryDto {
-  @Type(() => Number)
-  @IsNumber()
-  @Min(1)
-  page: number = 1;
+  @IsOptional()
+  @IsString()
+  cursor?: string;
 
-  @Type(() => Number)
-  @IsNumber()
+  @Transform(({ value }) => Number(value))
+  @IsInt()
   @Min(1)
-  limit: number = 10;
+  limit: number = 20;
 }

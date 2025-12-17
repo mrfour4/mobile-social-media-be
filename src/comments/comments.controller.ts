@@ -36,7 +36,11 @@ export class CommentsController {
     @Param('postId') postId: string,
     @Query() query: CommentQueryDto,
   ) {
-    return this.commentsService.getComments(postId, query.page, query.limit);
+    return this.commentsService.getCommentsCursor(
+      postId,
+      query.cursor,
+      query.limit,
+    );
   }
 
   @Patch('comments/:id')

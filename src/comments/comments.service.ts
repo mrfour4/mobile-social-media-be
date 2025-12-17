@@ -90,10 +90,8 @@ export class CommentsService {
     return comment;
   }
 
-  async getComments(postId: string, page: number, limit: number) {
-    const skip = (page - 1) * limit;
-
-    const comments = await this.prisma.comment.findMany({
+  async getCommentsCursor(postId: string, cursor?: string, limit = 20) {
+    const args: any = {
       where: {
         postId,
         parentCommentId: null,
@@ -109,11 +107,23 @@ export class CommentsService {
         },
       },
       orderBy: { createdAt: 'asc' },
-      skip,
       take: limit,
-    });
+    };
 
-    return comments;
+    if (cursor) {
+      args.cursor = { id: cursor };
+      args.skip = 1;
+    }
+
+    const items = await this.prisma.comment.findMany(args);
+
+    const nextCursor =
+      items.length === limit ? items[items.length - 1].id : null;
+
+    return {
+      items,
+      nextCursor,
+    };
   }
 
   async updateComment(
