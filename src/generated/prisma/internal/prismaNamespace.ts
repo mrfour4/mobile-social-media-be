@@ -2008,6 +2008,7 @@ export const PostScalarFieldEnum = {
   aiReason: 'aiReason',
   sharedFromId: 'sharedFromId',
   deletedAt: 'deletedAt',
+  hiddenAt: 'hiddenAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

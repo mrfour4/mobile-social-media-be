@@ -232,6 +232,7 @@ export class AuthService {
 
     const code = randomInt(0, 1_000_000).toString().padStart(6, '0');
 
+    // 10 min
     const expiresAt = new Date(Date.now() + 1000 * 60 * 10);
 
     const codeHash = await this.hashPassword(code);
@@ -297,6 +298,7 @@ export class AuthService {
     const user = await this.prisma.user.findUnique({ where: { email } });
     if (!user) return { success: true };
 
+    // 1 day
     const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
 
     const token = randomBytes(32).toString('hex');

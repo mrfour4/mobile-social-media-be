@@ -156,11 +156,13 @@ export class AdminService {
     const skip = (page - 1) * limit;
 
     const where: any = {};
+
     if (includeDeleted !== 'true') {
       where.deletedAt = null;
     }
 
     if (includeHidden !== 'true') {
+      where.hiddenAt = null;
     }
 
     const [items, total] = await this.prisma.$transaction([
@@ -191,14 +193,16 @@ export class AdminService {
     if (post.deletedAt) {
       throw new BadRequestException('Post already deleted');
     }
+    if (post.hiddenAt) {
+      throw new BadRequestException('Post already hidden');
+    }
 
     const updated = await this.prisma.post.update({
       where: { id: postId },
-      data: { deletedAt: new Date() },
+      data: { hiddenAt: new Date() },
     });
 
     await this.logAction(adminId, 'HIDE_POST', 'POST', postId, null);
-
     return updated;
   }
 
@@ -206,17 +210,19 @@ export class AdminService {
     const post = await this.prisma.post.findUnique({ where: { id: postId } });
     if (!post) throw new NotFoundException('Post not found');
 
-    if (!post.deletedAt) {
+    if (post.deletedAt) {
+      throw new BadRequestException('Post is deleted');
+    }
+    if (!post.hiddenAt) {
       throw new BadRequestException('Post is not hidden');
     }
 
     const updated = await this.prisma.post.update({
       where: { id: postId },
-      data: { deletedAt: null },
+      data: { hiddenAt: null },
     });
 
     await this.logAction(adminId, 'UNHIDE_POST', 'POST', postId, null);
-
     return updated;
   }
 

@@ -210,11 +210,15 @@ model Post {
   reactions Reaction[]
 
   deletedAt DateTime?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  hiddenAt  DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([authorId])
   @@index([sharedFromId])
+  @@index([hiddenAt])
+  @@index([deletedAt])
 }
 
 model PostMedia {

@@ -71,8 +71,10 @@ export class PostsService {
       where: {
         id: postId,
         deletedAt: null,
+        hiddenAt: null,
       },
       include: {
+        comments: true,
         media: true,
         author: true,
         sharedFrom: {
@@ -102,6 +104,7 @@ export class PostsService {
     const posts = await this.prisma.post.findMany({
       where: {
         deletedAt: null,
+        hiddenAt: null,
         OR: [
           {
             authorId: userId,

@@ -33,6 +33,7 @@ export type PostMinAggregateOutputType = {
   aiReason: string | null
   sharedFromId: string | null
   deletedAt: Date | null
+  hiddenAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -46,6 +47,7 @@ export type PostMaxAggregateOutputType = {
   aiReason: string | null
   sharedFromId: string | null
   deletedAt: Date | null
+  hiddenAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -59,6 +61,7 @@ export type PostCountAggregateOutputType = {
   aiReason: number
   sharedFromId: number
   deletedAt: number
+  hiddenAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -74,6 +77,7 @@ export type PostMinAggregateInputType = {
   aiReason?: true
   sharedFromId?: true
   deletedAt?: true
+  hiddenAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -87,6 +91,7 @@ export type PostMaxAggregateInputType = {
   aiReason?: true
   sharedFromId?: true
   deletedAt?: true
+  hiddenAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -100,6 +105,7 @@ export type PostCountAggregateInputType = {
   aiReason?: true
   sharedFromId?: true
   deletedAt?: true
+  hiddenAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -186,6 +192,7 @@ export type PostGroupByOutputType = {
   aiReason: string | null
   sharedFromId: string | null
   deletedAt: Date | null
+  hiddenAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: PostCountAggregateOutputType | null
@@ -220,6 +227,7 @@ export type PostWhereInput = {
   aiReason?: Prisma.StringNullableFilter<"Post"> | string | null
   sharedFromId?: Prisma.StringNullableFilter<"Post"> | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
+  hiddenAt?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Post"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Post"> | Date | string
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -239,6 +247,7 @@ export type PostOrderByWithRelationInput = {
   aiReason?: Prisma.SortOrderInput | Prisma.SortOrder
   sharedFromId?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  hiddenAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   author?: Prisma.UserOrderByWithRelationInput
@@ -261,6 +270,7 @@ export type PostWhereUniqueInput = Prisma.AtLeast<{
   aiReason?: Prisma.StringNullableFilter<"Post"> | string | null
   sharedFromId?: Prisma.StringNullableFilter<"Post"> | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
+  hiddenAt?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Post"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Post"> | Date | string
   author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -280,6 +290,7 @@ export type PostOrderByWithAggregationInput = {
   aiReason?: Prisma.SortOrderInput | Prisma.SortOrder
   sharedFromId?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  hiddenAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.PostCountOrderByAggregateInput
@@ -299,6 +310,7 @@ export type PostScalarWhereWithAggregatesInput = {
   aiReason?: Prisma.StringNullableWithAggregatesFilter<"Post"> | string | null
   sharedFromId?: Prisma.StringNullableWithAggregatesFilter<"Post"> | string | null
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Post"> | Date | string | null
+  hiddenAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Post"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Post"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Post"> | Date | string
 }
@@ -310,6 +322,7 @@ export type PostCreateInput = {
   aiStatus?: $Enums.AiStatus
   aiReason?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutPostsInput
@@ -329,6 +342,7 @@ export type PostUncheckedCreateInput = {
   aiReason?: string | null
   sharedFromId?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   shares?: Prisma.PostUncheckedCreateNestedManyWithoutSharedFromInput
@@ -344,6 +358,7 @@ export type PostUpdateInput = {
   aiStatus?: Prisma.EnumAiStatusFieldUpdateOperationsInput | $Enums.AiStatus
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
@@ -363,6 +378,7 @@ export type PostUncheckedUpdateInput = {
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sharedFromId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   shares?: Prisma.PostUncheckedUpdateManyWithoutSharedFromNestedInput
@@ -380,6 +396,7 @@ export type PostCreateManyInput = {
   aiReason?: string | null
   sharedFromId?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -391,6 +408,7 @@ export type PostUpdateManyMutationInput = {
   aiStatus?: Prisma.EnumAiStatusFieldUpdateOperationsInput | $Enums.AiStatus
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -404,6 +422,7 @@ export type PostUncheckedUpdateManyInput = {
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sharedFromId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -432,6 +451,7 @@ export type PostCountOrderByAggregateInput = {
   aiReason?: Prisma.SortOrder
   sharedFromId?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  hiddenAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -445,6 +465,7 @@ export type PostMaxOrderByAggregateInput = {
   aiReason?: Prisma.SortOrder
   sharedFromId?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  hiddenAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -458,6 +479,7 @@ export type PostMinOrderByAggregateInput = {
   aiReason?: Prisma.SortOrder
   sharedFromId?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+  hiddenAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -626,6 +648,7 @@ export type PostCreateWithoutAuthorInput = {
   aiStatus?: $Enums.AiStatus
   aiReason?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   sharedFrom?: Prisma.PostCreateNestedOneWithoutSharesInput
@@ -643,6 +666,7 @@ export type PostUncheckedCreateWithoutAuthorInput = {
   aiReason?: string | null
   sharedFromId?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   shares?: Prisma.PostUncheckedCreateNestedManyWithoutSharedFromInput
@@ -689,6 +713,7 @@ export type PostScalarWhereInput = {
   aiReason?: Prisma.StringNullableFilter<"Post"> | string | null
   sharedFromId?: Prisma.StringNullableFilter<"Post"> | string | null
   deletedAt?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
+  hiddenAt?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Post"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Post"> | Date | string
 }
@@ -700,6 +725,7 @@ export type PostCreateWithoutSharesInput = {
   aiStatus?: $Enums.AiStatus
   aiReason?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutPostsInput
@@ -718,6 +744,7 @@ export type PostUncheckedCreateWithoutSharesInput = {
   aiReason?: string | null
   sharedFromId?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   media?: Prisma.PostMediaUncheckedCreateNestedManyWithoutPostInput
@@ -737,6 +764,7 @@ export type PostCreateWithoutSharedFromInput = {
   aiStatus?: $Enums.AiStatus
   aiReason?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutPostsInput
@@ -754,6 +782,7 @@ export type PostUncheckedCreateWithoutSharedFromInput = {
   aiStatus?: $Enums.AiStatus
   aiReason?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   shares?: Prisma.PostUncheckedCreateNestedManyWithoutSharedFromInput
@@ -790,6 +819,7 @@ export type PostUpdateWithoutSharesInput = {
   aiStatus?: Prisma.EnumAiStatusFieldUpdateOperationsInput | $Enums.AiStatus
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
@@ -808,6 +838,7 @@ export type PostUncheckedUpdateWithoutSharesInput = {
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sharedFromId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   media?: Prisma.PostMediaUncheckedUpdateManyWithoutPostNestedInput
@@ -838,6 +869,7 @@ export type PostCreateWithoutMediaInput = {
   aiStatus?: $Enums.AiStatus
   aiReason?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutPostsInput
@@ -856,6 +888,7 @@ export type PostUncheckedCreateWithoutMediaInput = {
   aiReason?: string | null
   sharedFromId?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   shares?: Prisma.PostUncheckedCreateNestedManyWithoutSharedFromInput
@@ -886,6 +919,7 @@ export type PostUpdateWithoutMediaInput = {
   aiStatus?: Prisma.EnumAiStatusFieldUpdateOperationsInput | $Enums.AiStatus
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
@@ -904,6 +938,7 @@ export type PostUncheckedUpdateWithoutMediaInput = {
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sharedFromId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   shares?: Prisma.PostUncheckedUpdateManyWithoutSharedFromNestedInput
@@ -918,6 +953,7 @@ export type PostCreateWithoutCommentsInput = {
   aiStatus?: $Enums.AiStatus
   aiReason?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutPostsInput
@@ -936,6 +972,7 @@ export type PostUncheckedCreateWithoutCommentsInput = {
   aiReason?: string | null
   sharedFromId?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   shares?: Prisma.PostUncheckedCreateNestedManyWithoutSharedFromInput
@@ -966,6 +1003,7 @@ export type PostUpdateWithoutCommentsInput = {
   aiStatus?: Prisma.EnumAiStatusFieldUpdateOperationsInput | $Enums.AiStatus
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
@@ -984,6 +1022,7 @@ export type PostUncheckedUpdateWithoutCommentsInput = {
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sharedFromId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   shares?: Prisma.PostUncheckedUpdateManyWithoutSharedFromNestedInput
@@ -998,6 +1037,7 @@ export type PostCreateWithoutReactionsInput = {
   aiStatus?: $Enums.AiStatus
   aiReason?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   author: Prisma.UserCreateNestedOneWithoutPostsInput
@@ -1016,6 +1056,7 @@ export type PostUncheckedCreateWithoutReactionsInput = {
   aiReason?: string | null
   sharedFromId?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   shares?: Prisma.PostUncheckedCreateNestedManyWithoutSharedFromInput
@@ -1046,6 +1087,7 @@ export type PostUpdateWithoutReactionsInput = {
   aiStatus?: Prisma.EnumAiStatusFieldUpdateOperationsInput | $Enums.AiStatus
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
@@ -1064,6 +1106,7 @@ export type PostUncheckedUpdateWithoutReactionsInput = {
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sharedFromId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   shares?: Prisma.PostUncheckedUpdateManyWithoutSharedFromNestedInput
@@ -1079,6 +1122,7 @@ export type PostCreateManyAuthorInput = {
   aiReason?: string | null
   sharedFromId?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1090,6 +1134,7 @@ export type PostUpdateWithoutAuthorInput = {
   aiStatus?: Prisma.EnumAiStatusFieldUpdateOperationsInput | $Enums.AiStatus
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sharedFrom?: Prisma.PostUpdateOneWithoutSharesNestedInput
@@ -1107,6 +1152,7 @@ export type PostUncheckedUpdateWithoutAuthorInput = {
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sharedFromId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   shares?: Prisma.PostUncheckedUpdateManyWithoutSharedFromNestedInput
@@ -1123,6 +1169,7 @@ export type PostUncheckedUpdateManyWithoutAuthorInput = {
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sharedFromId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1135,6 +1182,7 @@ export type PostCreateManySharedFromInput = {
   aiStatus?: $Enums.AiStatus
   aiReason?: string | null
   deletedAt?: Date | string | null
+  hiddenAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1146,6 +1194,7 @@ export type PostUpdateWithoutSharedFromInput = {
   aiStatus?: Prisma.EnumAiStatusFieldUpdateOperationsInput | $Enums.AiStatus
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   author?: Prisma.UserUpdateOneRequiredWithoutPostsNestedInput
@@ -1163,6 +1212,7 @@ export type PostUncheckedUpdateWithoutSharedFromInput = {
   aiStatus?: Prisma.EnumAiStatusFieldUpdateOperationsInput | $Enums.AiStatus
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   shares?: Prisma.PostUncheckedUpdateManyWithoutSharedFromNestedInput
@@ -1179,6 +1229,7 @@ export type PostUncheckedUpdateManyWithoutSharedFromInput = {
   aiStatus?: Prisma.EnumAiStatusFieldUpdateOperationsInput | $Enums.AiStatus
   aiReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  hiddenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1250,6 +1301,7 @@ export type PostSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   aiReason?: boolean
   sharedFromId?: boolean
   deletedAt?: boolean
+  hiddenAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1270,6 +1322,7 @@ export type PostSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   aiReason?: boolean
   sharedFromId?: boolean
   deletedAt?: boolean
+  hiddenAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1285,6 +1338,7 @@ export type PostSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   aiReason?: boolean
   sharedFromId?: boolean
   deletedAt?: boolean
+  hiddenAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1300,11 +1354,12 @@ export type PostSelectScalar = {
   aiReason?: boolean
   sharedFromId?: boolean
   deletedAt?: boolean
+  hiddenAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PostOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "authorId" | "text" | "privacy" | "aiStatus" | "aiReason" | "sharedFromId" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["post"]>
+export type PostOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "authorId" | "text" | "privacy" | "aiStatus" | "aiReason" | "sharedFromId" | "deletedAt" | "hiddenAt" | "createdAt" | "updatedAt", ExtArgs["result"]["post"]>
 export type PostInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   sharedFrom?: boolean | Prisma.Post$sharedFromArgs<ExtArgs>
@@ -1342,6 +1397,7 @@ export type $PostPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     aiReason: string | null
     sharedFromId: string | null
     deletedAt: Date | null
+    hiddenAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["post"]>
@@ -1781,6 +1837,7 @@ export interface PostFieldRefs {
   readonly aiReason: Prisma.FieldRef<"Post", 'String'>
   readonly sharedFromId: Prisma.FieldRef<"Post", 'String'>
   readonly deletedAt: Prisma.FieldRef<"Post", 'DateTime'>
+  readonly hiddenAt: Prisma.FieldRef<"Post", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Post", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Post", 'DateTime'>
 }
