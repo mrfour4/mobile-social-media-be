@@ -112,3 +112,11 @@ export const ConversationMemberRole = {
 } as const
 
 export type ConversationMemberRole = (typeof ConversationMemberRole)[keyof typeof ConversationMemberRole]
+
+
+export const PasswordResetPurpose = {
+  USER_SELF: 'USER_SELF',
+  ADMIN_ASSISTED: 'ADMIN_ASSISTED'
+} as const
+
+export type PasswordResetPurpose = (typeof PasswordResetPurpose)[keyof typeof PasswordResetPurpose]

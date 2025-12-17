@@ -139,6 +139,7 @@ export const PasswordResetTokenScalarFieldEnum = {
   token: 'token',
   expiresAt: 'expiresAt',
   usedAt: 'usedAt',
+  purpose: 'purpose',
   createdAt: 'createdAt'
 } as const
 

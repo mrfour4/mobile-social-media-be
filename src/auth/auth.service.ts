@@ -7,6 +7,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { randomBytes, randomInt } from 'crypto';
+import { PasswordResetPurpose } from 'src/generated/prisma/enums';
 import { PrismaService } from '../database/prisma.service';
 import { EmailService } from '../email/email.service';
 import { LoginDto } from './dtos/login.dto';
@@ -288,6 +289,27 @@ export class AuthService {
         data: { usedAt: new Date() },
       }),
     ]);
+
+    return { success: true };
+  }
+
+  async requestAdminResetPassword(email: string) {
+    const user = await this.prisma.user.findUnique({ where: { email } });
+    if (!user) return { success: true };
+
+    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+
+    const token = randomBytes(32).toString('hex');
+
+    await this.prisma.passwordResetToken.create({
+      data: {
+        userId: user.id,
+        token,
+        expiresAt,
+        usedAt: null,
+        purpose: PasswordResetPurpose.ADMIN_ASSISTED,
+      },
+    });
 
     return { success: true };
   }

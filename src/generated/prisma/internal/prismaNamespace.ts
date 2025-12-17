@@ -1992,6 +1992,7 @@ export const PasswordResetTokenScalarFieldEnum = {
   token: 'token',
   expiresAt: 'expiresAt',
   usedAt: 'usedAt',
+  purpose: 'purpose',
   createdAt: 'createdAt'
 } as const
 
@@ -2298,6 +2299,20 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PasswordResetPurpose'
+ */
+export type EnumPasswordResetPurposeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PasswordResetPurpose'>
+    
+
+
+/**
+ * Reference to a field of type 'PasswordResetPurpose[]'
+ */
+export type ListEnumPasswordResetPurposeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PasswordResetPurpose[]'>
     
 
 

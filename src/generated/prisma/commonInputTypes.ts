@@ -178,6 +178,23 @@ export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedDateTimeFilter<$PrismaModel>
 }
 
+export type EnumPasswordResetPurposeFilter<$PrismaModel = never> = {
+  equals?: $Enums.PasswordResetPurpose | Prisma.EnumPasswordResetPurposeFieldRefInput<$PrismaModel>
+  in?: $Enums.PasswordResetPurpose[] | Prisma.ListEnumPasswordResetPurposeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PasswordResetPurpose[] | Prisma.ListEnumPasswordResetPurposeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPasswordResetPurposeFilter<$PrismaModel> | $Enums.PasswordResetPurpose
+}
+
+export type EnumPasswordResetPurposeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PasswordResetPurpose | Prisma.EnumPasswordResetPurposeFieldRefInput<$PrismaModel>
+  in?: $Enums.PasswordResetPurpose[] | Prisma.ListEnumPasswordResetPurposeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PasswordResetPurpose[] | Prisma.ListEnumPasswordResetPurposeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPasswordResetPurposeWithAggregatesFilter<$PrismaModel> | $Enums.PasswordResetPurpose
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPasswordResetPurposeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPasswordResetPurposeFilter<$PrismaModel>
+}
+
 export type EnumPrivacyFilter<$PrismaModel = never> = {
   equals?: $Enums.Privacy | Prisma.EnumPrivacyFieldRefInput<$PrismaModel>
   in?: $Enums.Privacy[] | Prisma.ListEnumPrivacyFieldRefInput<$PrismaModel>
@@ -706,6 +723,23 @@ export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedDateTimeFilter<$PrismaModel>
   _max?: Prisma.NestedDateTimeFilter<$PrismaModel>
+}
+
+export type NestedEnumPasswordResetPurposeFilter<$PrismaModel = never> = {
+  equals?: $Enums.PasswordResetPurpose | Prisma.EnumPasswordResetPurposeFieldRefInput<$PrismaModel>
+  in?: $Enums.PasswordResetPurpose[] | Prisma.ListEnumPasswordResetPurposeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PasswordResetPurpose[] | Prisma.ListEnumPasswordResetPurposeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPasswordResetPurposeFilter<$PrismaModel> | $Enums.PasswordResetPurpose
+}
+
+export type NestedEnumPasswordResetPurposeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PasswordResetPurpose | Prisma.EnumPasswordResetPurposeFieldRefInput<$PrismaModel>
+  in?: $Enums.PasswordResetPurpose[] | Prisma.ListEnumPasswordResetPurposeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PasswordResetPurpose[] | Prisma.ListEnumPasswordResetPurposeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPasswordResetPurposeWithAggregatesFilter<$PrismaModel> | $Enums.PasswordResetPurpose
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPasswordResetPurposeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPasswordResetPurposeFilter<$PrismaModel>
 }
 
 export type NestedEnumPrivacyFilter<$PrismaModel = never> = {

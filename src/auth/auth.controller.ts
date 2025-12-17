@@ -40,4 +40,9 @@ export class AuthController {
   reset(@Body() dto: ResetPasswordDto) {
     return this.authService.resetPassword(dto.email, dto.code, dto.newPassword);
   }
+
+  @Post('request-admin-reset-password')
+  requestAdminReset(@Body() dto: RequestResetPasswordDto) {
+    return this.authService.requestAdminResetPassword(dto.email);
+  }
 }

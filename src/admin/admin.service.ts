@@ -4,6 +4,9 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
+import { randomBytes } from 'crypto';
+import { EmailService } from 'src/email/email.service';
+import { PasswordResetPurpose } from 'src/generated/prisma/enums';
 import { PrismaService } from '../database/prisma.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { AdminAnnouncementDto } from './dtos/admin-announcement.dto';
@@ -17,6 +20,7 @@ export class AdminService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly notificationsService: NotificationsService,
+    private readonly emailService: EmailService,
   ) {}
 
   private async logAction(
@@ -319,5 +323,78 @@ export class AdminService {
     });
 
     return { success: true, userCount: users.length };
+  }
+
+  async listPasswordResetRequests() {
+    const now = new Date();
+
+    const items = await this.prisma.passwordResetToken.findMany({
+      where: {
+        purpose: PasswordResetPurpose.ADMIN_ASSISTED,
+        usedAt: null,
+        expiresAt: { gt: now },
+      },
+      orderBy: { createdAt: 'desc' },
+      include: {
+        user: { select: { id: true, email: true, name: true, isBanned: true } },
+      },
+    });
+
+    return { items };
+  }
+
+  async approvePasswordResetRequest(adminId: string, token: string) {
+    const record = await this.prisma.passwordResetToken.findUnique({
+      where: { token },
+      include: { user: true },
+    });
+
+    if (!record) throw new NotFoundException('Request not found');
+    if (record.purpose !== 'ADMIN_ASSISTED')
+      throw new BadRequestException('Invalid request type');
+    if (record.usedAt) throw new BadRequestException('Request already used');
+    if (record.expiresAt < new Date())
+      throw new BadRequestException('Request expired');
+
+    if (record.user.isBanned) throw new BadRequestException('User is banned');
+
+    const tempPassword = randomBytes(6).toString('base64url');
+    const passwordHash = await bcrypt.hash(tempPassword, 10);
+
+    await this.prisma.$transaction([
+      this.prisma.user.update({
+        where: { id: record.userId },
+        data: { passwordHash },
+      }),
+      this.prisma.refreshToken.updateMany({
+        where: { userId: record.userId },
+        data: { revokedAt: new Date() },
+      }),
+      this.prisma.passwordResetToken.update({
+        where: { id: record.id },
+        data: { usedAt: new Date() },
+      }),
+    ]);
+
+    await this.emailService.sendMail(
+      record.user.email,
+      'Your password has been reset by admin',
+      `<p>Admin đã reset mật khẩu cho bạn.</p>
+     <p>Mật khẩu tạm thời: <b>${tempPassword}</b></p>
+     <p>Vui lòng đăng nhập và đổi mật khẩu ngay.</p>`,
+    );
+
+    await this.logAction(
+      adminId,
+      'ADMIN_RESET_PASSWORD',
+      'USER',
+      record.userId,
+      {
+        email: record.user.email,
+        requestTokenId: record.id,
+      },
+    );
+
+    return { success: true };
   }
 }

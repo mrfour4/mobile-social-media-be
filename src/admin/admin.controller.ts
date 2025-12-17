@@ -92,4 +92,17 @@ export class AdminController {
   ) {
     return this.adminService.createAnnouncement(admin.sub, dto);
   }
+
+  @Get('password-reset-requests')
+  listPasswordResetRequests() {
+    return this.adminService.listPasswordResetRequests();
+  }
+
+  @Post('password-reset-requests/:token/approve')
+  approvePasswordResetRequest(
+    @CurrentUser() admin: any,
+    @Param('token') token: string,
+  ) {
+    return this.adminService.approvePasswordResetRequest(admin.sub, token);
+  }
 }

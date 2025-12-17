@@ -80,6 +80,11 @@ enum ConversationMemberRole {
   OWNER
 }
 
+enum PasswordResetPurpose {
+  USER_SELF
+  ADMIN_ASSISTED
+}
+
 model User {
   id           String  @id @default(uuid())
   email        String  @unique
@@ -175,10 +180,13 @@ model PasswordResetToken {
   expiresAt DateTime
   usedAt    DateTime?
 
+  purpose PasswordResetPurpose @default(USER_SELF)
+
   createdAt DateTime @default(now())
 
   @@index([userId])
   @@index([token])
+  @@index([purpose])
 }
 
 model Post {
