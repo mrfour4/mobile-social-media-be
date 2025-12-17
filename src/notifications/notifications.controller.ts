@@ -32,4 +32,12 @@ export class NotificationsController {
   markAllRead(@CurrentUser() user: any) {
     return this.notificationsService.markAllRead(user.sub);
   }
+
+  @Get('announcements')
+  listAnnouncements(
+    @CurrentUser() user: any,
+    @Query() query: ListNotificationsDto,
+  ) {
+    return this.notificationsService.listAnnouncements(user.sub, query);
+  }
 }

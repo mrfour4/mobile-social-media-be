@@ -191,4 +191,31 @@ export class NotificationsService {
       data,
     );
   }
+
+  async listAnnouncements(userId: string, query: ListNotificationsDto) {
+    const { cursor, limit } = query;
+
+    const args: any = {
+      where: {
+        userId,
+        type: NotificationType.ADMIN_ANNOUNCEMENT,
+      },
+      orderBy: { createdAt: 'desc' },
+      take: limit,
+    };
+
+    if (cursor) {
+      args.cursor = { id: cursor };
+      args.skip = 1;
+    }
+
+    const items = await this.prisma.notification.findMany(args);
+
+    let nextCursor: string | null = null;
+    if (items.length === limit) {
+      nextCursor = items[items.length - 1].id;
+    }
+
+    return { items, nextCursor };
+  }
 }
