@@ -1,13 +1,13 @@
 // src/comments/comments.module.ts
 import { Module } from '@nestjs/common';
+import { AiModule } from 'src/ai/ai.module';
 import { NotificationsModule } from 'src/notifications/notifications.module';
-import { AiService } from '../ai/ai.service';
 import { CommentsController } from './comments.controller';
 import { CommentsService } from './comments.service';
 
 @Module({
-  imports: [NotificationsModule],
+  imports: [NotificationsModule, AiModule],
   controllers: [CommentsController],
-  providers: [CommentsService, AiService],
+  providers: [CommentsService],
 })
 export class CommentsModule {}

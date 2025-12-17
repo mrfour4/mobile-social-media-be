@@ -1,4 +1,3 @@
-// src/posts/posts.service.ts
 import {
   BadRequestException,
   ForbiddenException,
@@ -29,15 +28,24 @@ export class PostsService {
         throw new BadRequestException('Max 1 video allowed');
     }
 
-    const ai = await this.aiService.moderateText(dto.text ?? '');
+    const moderation = await this.aiService.moderateText(dto.text ?? '', {
+      type: 'post',
+      userId,
+    });
+
+    if (!moderation.allowed) {
+      throw new BadRequestException(
+        `Nội dung không phù hợp: ${moderation.reason ?? 'vi phạm guideline.'}`,
+      );
+    }
 
     const post = await this.prisma.post.create({
       data: {
         authorId: userId,
         text: dto.text ?? null,
         privacy: dto.privacy,
-        aiStatus: ai.status as AiStatus,
-        aiReason: ai.reasons.join(','),
+        aiStatus: AiStatus.OK,
+        aiReason: moderation.reason,
         media: dto.media
           ? {
               create: dto.media.map((m, index) => ({
@@ -123,6 +131,17 @@ export class PostsService {
     const post = await this.prisma.post.findUnique({ where: { id: postId } });
     if (!post || post.deletedAt) throw new NotFoundException('Post not found');
     if (post.authorId !== userId) throw new ForbiddenException();
+
+    const moderation = await this.aiService.moderateText(dto.text ?? '', {
+      type: 'post',
+      userId,
+    });
+
+    if (!moderation.allowed) {
+      throw new BadRequestException(
+        `Nội dung không phù hợp: ${moderation.reason ?? 'vi phạm guideline.'}`,
+      );
+    }
 
     const updated = await this.prisma.post.update({
       where: { id: postId },

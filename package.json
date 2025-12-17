@@ -34,6 +34,7 @@
     "bcrypt": "^6.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.3",
+    "groq-sdk": "^0.37.0",
     "install": "^0.13.0",
     "nodemailer": "^7.0.11",
     "npm": "^11.6.4",

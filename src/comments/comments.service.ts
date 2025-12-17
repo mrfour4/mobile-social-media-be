@@ -4,6 +4,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { AiStatus } from 'src/generated/prisma/enums';
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { AiService } from '../ai/ai.service';
 import { PrismaService } from '../database/prisma.service';
@@ -34,7 +35,15 @@ export class CommentsService {
         throw new BadRequestException('Only 1-level reply allowed');
     }
 
-    const moderation = await this.aiService.moderateText(dto.content);
+    const moderation = await this.aiService.moderateText(dto.content ?? '', {
+      type: 'comment',
+    });
+
+    if (!moderation.allowed) {
+      throw new BadRequestException(
+        `Nội dung không phù hợp: ${moderation.reason ?? 'vi phạm guideline.'}`,
+      );
+    }
 
     const comment = await this.prisma.comment.create({
       data: {
@@ -42,8 +51,8 @@ export class CommentsService {
         authorId: userId,
         content: dto.content,
         parentCommentId: dto.parentCommentId ?? null,
-        aiStatus: moderation.status,
-        aiReason: moderation.reasons.join(','),
+        aiStatus: AiStatus.OK,
+        aiReason: moderation.reason,
       },
       include: {
         author: true,
@@ -116,14 +125,20 @@ export class CommentsService {
 
     if (comment.authorId !== userId) throw new ForbiddenException();
 
-    const moderation = await this.aiService.moderateText(dto.content);
+    const moderation = await this.aiService.moderateText(dto.content, {
+      type: 'comment',
+    });
+
+    if (!moderation.allowed) {
+      throw new BadRequestException(
+        `Nội dung không phù hợp: ${moderation.reason ?? 'vi phạm guideline.'}`,
+      );
+    }
 
     const updated = await this.prisma.comment.update({
       where: { id: commentId },
       data: {
         content: dto.content,
-        aiStatus: moderation.status,
-        aiReason: moderation.reasons.join(','),
       },
       include: { author: true },
     });
