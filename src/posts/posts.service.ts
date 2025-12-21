@@ -74,7 +74,11 @@ export class PostsService {
         hiddenAt: null,
       },
       include: {
-        comments: true,
+        comments: {
+          include: {
+            author: true,
+          },
+        },
         media: true,
         author: true,
         sharedFrom: {
