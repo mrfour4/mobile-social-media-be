@@ -100,6 +100,11 @@ export class CommentsService {
       },
       include: {
         author: true,
+        reactions: {
+          include: {
+            user: true,
+          },
+        },
         replies: {
           include: { author: true },
           where: { deletedAt: null, hiddenAt: null },

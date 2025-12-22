@@ -79,6 +79,11 @@ export class PostsService {
             author: true,
           },
         },
+        reactions: {
+          include: {
+            user: true,
+          },
+        },
         media: true,
         author: true,
         sharedFrom: {
