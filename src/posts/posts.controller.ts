@@ -34,8 +34,8 @@ export class PostsController {
   }
 
   @Get(':id')
-  getOne(@Param('id') id: string) {
-    return this.postsService.getPost(id);
+  getOne(@Param('id') id: string, @CurrentUser() user: any) {
+    return this.postsService.getPost(id, user.role);
   }
 
   @Patch(':id')

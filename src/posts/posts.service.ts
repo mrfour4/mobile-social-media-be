@@ -6,7 +6,12 @@ import {
 } from '@nestjs/common';
 import { AiService } from '../ai/ai.service';
 import { PrismaService } from '../database/prisma.service';
-import { AiStatus, MediaType, Privacy } from '../generated/prisma/enums';
+import {
+  AiStatus,
+  MediaType,
+  Privacy,
+  UserRole,
+} from '../generated/prisma/enums';
 import { CreatePostDto } from './dtos/create-post.dto';
 import { UpdatePostDto } from './dtos/update-post.dto';
 
@@ -66,13 +71,18 @@ export class PostsService {
     return post;
   }
 
-  async getPost(postId: string) {
+  async getPost(postId: string, requesterRole?: UserRole) {
+    const where: any = {
+      id: postId,
+      deletedAt: null,
+    };
+
+    if (requesterRole !== UserRole.ADMIN) {
+      where.hiddenAt = null;
+    }
+
     const post = await this.prisma.post.findFirst({
-      where: {
-        id: postId,
-        deletedAt: null,
-        hiddenAt: null,
-      },
+      where,
       include: {
         comments: {
           include: {
